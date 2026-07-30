@@ -1,0 +1,14 @@
+controlnode:
+  hosts:
+    lx01:
+      ansible_host: controlnode-%%USER%%.ansible-introduction.training.scinnolab.net
+managednodes:
+  hosts:
+    lx02:
+      ansible_host: lx02-%%USER.ansible-introduction.training.scinnolab.net
+    lx03:
+      ansible_host: lx03-%%USER.ansible-introduction.training.scinnolab.net
+    lx04:
+      ansible_host: lx04-%%USER.ansible-introduction.training.scinnolab.net
+    lx05:
+      ansible_host: lx05-%%USER.ansible-introduction.training.scinnolab.net
