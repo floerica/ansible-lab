@@ -1,0 +1,40 @@
+#document_root: /home/www
+
+apache:
+ RedHat:
+   apache_confdir: /etc/httpd/conf
+   apache_conftemplate: httpd.conf.j2
+   apache_conffile: httpd.conf
+   apache_service: httpd
+   apache_service_state: started
+   apache_service_enabled: true
+   apache_documentroot: /www
+   apache_htmlroot: /www/html
+   apache_user: apache
+   apache_group: apache
+   pkgs:
+     - httpd
+ Debian:
+   apache_confdir: /etc/apache2
+   apache_conffile: apache2.conf
+   apache_service: apache2
+   apache_user: www-data
+   apache_group: www-data
+   pkgs:
+     - apache2
+ Suse:
+   apache_confdir: /etc/apache2
+   pkgs:
+     - apache2
+
+apache_os: "{{ apache[ansible_os_family] }}"
+
+apache_common:
+  apache_service_state: started
+  apache_service_enabled: true
+  apache_documentroot: /www
+  apache_htmlroot: /www/html
+  apache_indextemplate: index.html.j2
+  apache_indexfile: index.html
+  apache_dirperm: '0755'
+  apache_fileperm: '0644'

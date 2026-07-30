@@ -1,0 +1,25 @@
+---
+
+galaxy_info:
+  role_name: resolvconf
+  namespace: lifeofguenter
+  author: Günter Grodotzki
+  description: An Ansible role to configure /etc/resolv.conf
+  license: MIT
+  min_ansible_version: '2.10'
+  platforms:
+    - name: Debian
+      versions:
+        - bookworm
+        - bullseye
+        - buster
+    - name: Ubuntu
+      versions:
+        - jammy
+        - focal
+        - bionic
+  galaxy_tags:
+    - system
+    - resolvconf
+    - dns
+dependencies: []

@@ -1,0 +1,11 @@
+---
+# control block
+  - name: small helper to gather ansible variables for usage
+    hosts: all
+    become: yes
+    gather_facts: true
+# action block
+    tasks:
+    - name: print secret
+      ansible.builtin.debug:
+        var: seceret_var

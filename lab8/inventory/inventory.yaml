@@ -1,0 +1,12 @@
+controlnode:
+  hosts:
+    lx01:
+managednodes:
+  hosts:
+    lx02:
+    lx03:
+    lx04:
+    lx05:
+web:
+  hosts:
+    lx02:

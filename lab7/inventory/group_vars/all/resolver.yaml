@@ -1,0 +1,7 @@
+resolv_nameservers:
+  - 1.1.1.1
+  - 8.8.8.8
+
+resolv_search:
+  - example.com
+  - ansible.com

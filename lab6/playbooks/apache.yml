@@ -1,0 +1,88 @@
+---
+- hosts: web
+  become: true
+  gather_facts: true
+  vars:
+    document_root: /www
+    html_root: "{{ document_root }}/html"
+    pkgs:
+      - httpd
+    service: httpd
+    service_state: started
+    service_enabled: true
+    webuser: apache
+    webgroup: apache
+    conftemplate: "httpd.conf.j2"
+    confroot: "/etc/httpd/conf"
+    conffile: "httpd.conf"
+    indextemplate: "index.html.j2"
+    indexfile: "index.html"
+  tasks:
+    - name: "install httpd"
+      ansible.builtin.package:
+        name: "{{ pkgs|list }}"
+        state: present
+        update_cache: true
+    - name: enable and start httpd
+      ansible.builtin.service:
+        name: "{{ service }}"
+        state: "{{ service_state }}"
+        enabled: "{{service_enabled }}"
+    - name: create /www/html
+      ansible.builtin.file:
+        path: "{{ html_root }}"
+        mode: 0755
+        owner: "{{ webuser }}"
+        group: "{{ webgroup }}"
+        state: directory
+    - name: copy apache config
+      ansible.builtin.template:
+        src: "{{ conftemplate }}"
+        dest: "{{ confroot }}/{{ conffile }}"
+        mode: 0644
+        owner: "{{ webuser }}"
+        group: "{{ webgroup }}"
+        backup: true
+      notify:
+        - restart-httpd
+    - name: "copy {{ indexfile }}"
+      ansible.builtin.template:
+        src: "{{ indextemplate }}"
+        dest: "{{ html_root }}/{{ indexfile }}"
+        mode: 0644
+        owner: "{{ webuser }}"
+        group: "{{ webgroup }}"
+    - name: "apply selinux to {{ document_root }}"
+      community.general.sefcontext:
+        target: "{{ item }}"
+        setype: httpd_sys_content_t
+        state: present
+      loop:
+        - "{{ document_root }}(/.*)?"
+      register: apache_sefcontext
+    - name: relabel selinux
+      ansible.builtin.command: "restorecon -irv {{ document_root }}"
+      when: apache_sefcontext.changed
+    - name: open firewall on port 80
+      ansible.posix.firewalld:
+        service: http
+        state: enabled
+        permanent: true
+        immediate: true
+        offline: true
+    - name: Flush handlers to make sure httpd is configured before the tests
+      meta: flush_handlers
+    - name: test webserver from another host
+      ansible.builtin.uri:
+        url: http://lx02
+        return_content: true
+      register: result
+      delegate_to: localhost
+    - name: dump uri result
+      ansible.builtin.debug:
+        var: result.content
+  handlers:
+    - name: restart-httpd
+      ansible.builtin.service:
+        name: "{{ service }}"
+        state: restarted

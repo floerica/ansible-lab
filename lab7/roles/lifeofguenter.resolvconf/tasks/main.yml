@@ -1,0 +1,11 @@
+---
+
+- name: Check if systemd-resolved is installed
+  ansible.builtin.command: dpkg -L systemd-resolved
+  register: dpkg_check_systemd_resolved
+  ignore_errors: true
+  changed_when: false
+
+- name: Import config.yml
+  ansible.builtin.import_tasks: config.yml
+  when: ansible_virtualization_type is not defined or ansible_virtualization_type not in resolv_blacklist

@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: true
+  gather_facts: true
+  tasks:
+    - name: install db server
+      ansible.builtin.package:
+        name: sqlite
+        state: present
+      when:
+        - ansible_memtotal_mb|float >2048

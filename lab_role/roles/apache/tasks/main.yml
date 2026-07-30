@@ -1,0 +1,65 @@
+---
+# tasks file for apache
+- name: "install {{ apache_os.pkgs }}"
+  ansible.builtin.package:
+    name: "{{ apache_os.pkgs }}"
+    state: present
+    update_cache: true
+- name: enable and start httpd
+  ansible.builtin.service:
+    name: "{{ apache_os.apache_service }}"
+    state: "{{ apache_os.apache_service_state |default(omit)}}"
+    enabled: "{{ apache_os.apache_service_enabled |default(omit)}}"
+- name: "create {{ apache_common.apache_htmlroot }}"
+  ansible.builtin.file:
+    path: "{{ apache_common.apache_htmlroot }}"
+    mode: "{{ apache_common.apache_dirperm }}"
+    owner: "{{ apache_os.apache_user }}"
+    group: "{{ apache_os.apache_group }}"
+    state: directory
+- name: copy apache config
+  ansible.builtin.template:
+    src: "{{ apache_os.apache_conftemplate }}"
+    dest: "{{ apache_os.apache_confdir }}/{{ apache_os.apache_conffile }}"
+    mode: "{{ apache_common.apache_fileperm }}"
+    owner: "{{ apache_os.apache_user }}"
+    group: "{{ apache_os.apache_group }}"
+    backup: true
+  notify:
+    - restart-httpd
+- name: copy index.html
+  ansible.builtin.template:
+    src: "{{ apache_common.apache_indextemplate }}"
+    dest: "{{ apache_common.apache_htmlroot }}/{{ apache_common.apache_indexfile }}"
+    mode: "{{ apache_common.apache_fileperm }}"
+    owner: "{{ apache_os.apache_user }}"
+    group: "{{ apache_os.apache_group }}"
+- name: "apply selinux to {{ apache_common.apache_documentroot }}"
+  community.general.sefcontext:
+    target: "{{ item }}"
+    setype: httpd_sys_content_t
+    state: present
+  loop:
+    - "{{ apache_common.apache_documentroot }}(/.*)?"
+  register: apache_sefcontext
+- name: relabel selinux
+  ansible.builtin.command: restorecon -irv /home
+  when: apache_sefcontext.changed
+- name: open firewall on port 80
+  ansible.posix.firewalld:
+    service: http
+    state: enabled
+    permanent: true
+    immediate: true
+    offline: true
+- name: Flush handlers to make sure httpd is configured before the tests
+  meta: flush_handlers
+- name: test webserver from another host
+  ansible.builtin.uri:
+    url: http://lx02
+    return_content: true
+  register: result
+  delegate_to: localhost
+- name: dump uri result
+  ansible.builtin.debug:
+    var: result.content

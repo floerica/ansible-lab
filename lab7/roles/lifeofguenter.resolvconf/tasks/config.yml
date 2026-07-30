@@ -1,0 +1,30 @@
+---
+
+- name: Disable resolved
+  ansible.builtin.systemd:
+    name: systemd-resolved
+    state: stopped
+    enabled: false
+  become: true
+  when: dpkg_check_systemd_resolved is success
+
+- name: Stat current resolv.conf
+  ansible.builtin.stat:
+    path: /etc/resolv.conf
+  register: resolve_conf_file
+
+- name: Remove symlink
+  ansible.builtin.file:
+    path: /etc/resolv.conf
+    state: absent
+  become: true
+  when:
+    - resolve_conf_file.stat.islnk is defined
+    - resolve_conf_file.stat.islnk
+
+- name: Configure resolv.conf
+  ansible.builtin.template:
+    src: resolv.conf
+    dest: /etc/resolv.conf
+    mode: '0644'
+  become: true
