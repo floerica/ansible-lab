@@ -1,0 +1,59 @@
+We will do an ansible installation in a virtual environment. 
+Afterwards we check the current configuration.
+
+Steps:
+1. in your shell on your controlnode ensure you are in the ansible-lab directory
+Execute the following command to create your ansible virtual environment:
+
+cd ~/ansible-lab ; scripts/create_venv
+
+2. once that is done, open a new terminal session by clicking on the ... in the terminal window (vscode), or logoff and logon (terminal/shell)
+
+then your ansible_venv is already loaded and active
+
+3. Verify your ansible version and environment by executing
+
+ansible --version
+
+Output should be similar like this (versions may slightly differ)
+
+((myansible_venv) ) [user@ip-10-0-4-22 ansible-lab]$ ansible --version
+ansible [core 2.21.3]
+  config file = None
+  configured module search path = ['/home/user/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /home/user/myansible_venv/lib64/python3.12/site-packages/ansible
+  ansible collection location = /home/user/.ansible/collections:/usr/share/ansible/collections
+  executable location = /home/user/myansible_venv/bin/ansible
+  python version = 3.12.13 (main, Jul 10 2026, 00:00:00) [GCC 14.3.1 20251022 (Red Hat 14.3.1-4)] (/home/user/myansible_venv/bin/python)
+  jinja version = 3.1.6
+  pyyaml version = 6.0.3 (with libyaml v0.2.5)
+
+4. you can see what has been installed in your venv by inspecting ansible-lab/scripts/requirements.txt
+
+pip
+ansible-core
+pywinrm>=0.4.0
+pywinrm[credssp]>=0.4.0
+pykerberos
+pywinrm[credssp]
+pypsrp<=1.0.0
+pypsrp[credssp]<=1.0.0
+
+5. cd into the lab01 directory and execute: tree
+
+Output will be explained by the trainer (ansible project structure)
+
+6. to see the preset ansible-configuration please execute: ansible-config view
+
+output like this:
+
+((myansible_venv) ) [user@ip-10-0-4-22 lab01]$ ansible-config view
+[defaults]
+collections_path  = collections
+inventory = inventory
+((myansible_venv) ) [user@ip-10-0-4-22 lab01]$
+
+7. check available ansible documentation by executing:
+
+ansible-doc -l
+ansible-doc -t inventory -l
