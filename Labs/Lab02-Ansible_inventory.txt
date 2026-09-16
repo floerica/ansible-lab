@@ -1,0 +1,41 @@
+Ansible Inventories
+
+0. prepare lab02
+0a) cd into ~/ansible-lab ; scripts/preparelab.sh lab01 lab02
+0b) this creates your project structure from lab1 and adopts your ansible.cfg
+0c) it also prepares a basic inventory.yml file in ~/ansible-lab/lab02/inventory
+
+1. Inspect the inventory.yml file in ~/ansible-lab/lab02/inventory
+1a) it should contain a group controlnode having your controlnode lx01 inside
+1b) it should contain a group managednodes having all other hosts inside
+1c) it should not contain a group web having lx02 inside
+1d) Take a special look at the ansible_host definition per Host in the inventory file
+
+2. List your inventory from the lab02 directory
+2a) ansible-inventory --list 
+2b) ansible-inventory --host lx01
+2c) ansible-inventory --graph
+
+3. Connectivity tests
+3a) from your home do a "ansible controlnode -m ping"
+3b) from the ansible-lab/lab02 directory do a "ansible controlnode -m ping"
+3c) from your home do a ansible -i ~/ansible-lab/lab02/inventory controlnode -m ping"
+3c) what does work and what not and why (you can use -vvv to debug the ansible run)?
+
+4. create in parallel a inventory.ini file in ~/ansible-lab/lab02/inventory with a content similar to the following:
+
+[control]
+lx01
+
+[managed]
+lx02
+lx03
+
+4a) what do you need to do to use this inventory file with an ansible-inventory run?
+
+5. create a new .ansible.cfg in your home
+5a) inventory should point to your inventory.yml file from lab02
+5b) Test again with ansible web -m ping from your home directory
+why does it work now?
+5c) Cleanup -> rename this .ansible.cfg file
+
