@@ -1,0 +1,10 @@
+pip
+ansible-core
+ansible-lint
+yamllint
+pywinrm>=0.4.0
+pywinrm[credssp]>=0.4.0
+pykerberos
+pywinrm[credssp]
+pypsrp<=1.0.0
+pypsrp[credssp]<=1.0.0

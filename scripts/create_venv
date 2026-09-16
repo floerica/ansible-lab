@@ -1,0 +1,3 @@
+python -m venv ~/myansible_venv
+. ~/myansible_venv/bin/activate
+pip install --upgrade -r ~/ansible-windows-training/scripts/requirements.txt
