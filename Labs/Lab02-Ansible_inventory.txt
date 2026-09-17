@@ -22,7 +22,11 @@ Ansible Inventories
 3c) from your home do a ansible -i ~/ansible-lab/lab02/inventory controlnode -m ping"
 3c) what does work and what not and why (you can use -vvv to debug the ansible run)?
 
-4. create in parallel a inventory.ini file in ~/ansible-lab/lab02/inventory with a content similar to the following:
+4. Adding a Group
+4a) edit your inventory file and add a group web, put lx02 inside that group
+4b) validate your inventory file using ansible-inventory --list
+
+5. create in parallel a inventory.ini file in ~/ansible-lab/lab02/inventory with a content similar to the following:
 
 [control]
 lx01
@@ -31,11 +35,11 @@ lx01
 lx02
 lx03
 
-4a) what do you need to do to use this inventory file with an ansible-inventory run?
+5a) what do you need to do to use this inventory file with an ansible-inventory run?
 
-5. create a new .ansible.cfg in your home
-5a) inventory should point to your inventory.yml file from lab02
-5b) Test again with ansible web -m ping from your home directory
+6. create a new .ansible.cfg in your home
+6a) inventory should point to your inventory.yml file from lab02
+6b) Test again with ansible web -m ping from your home directory
 why does it work now?
-5c) Cleanup -> rename this .ansible.cfg file
+6c) Cleanup -> rename this .ansible.cfg file
 

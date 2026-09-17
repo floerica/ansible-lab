@@ -1,0 +1,39 @@
+
+0) prepare your lab
+0a) cd ~/ansible-lab ; scripts/preparelab.sh lab04 lab05
+0c) cd into your base directory: cd ~/ansible-lab/lab05
+
+
+Write a playbook to automate the following tasks:
+It should run on the group web.
+It needs root permissions.
+
+Define a variable in the inventory group web:
+document_root: /www
+
+Part 1:
+- Install a apache webserver (ansible.builtin.package)
+- Enable and start the service (ansible.builtin.service)
+- Create /www/html with permissions 755, owned by Apache User & Group (ansible.builtin.file)
+- copy an index.html (use the artifact in ~/ansible-basis-training-lab/files/index.html)
+  -> ansible.builtin.copy
+
+Part 2:
+- Adjust the Default configuration to have a new DocumentRoot in /www
+  - use a simple and small template 
+  -> Take the example from the artifacts: ~/ansible-basis-training-lab/templates/httpd.conf.j2
+  - notify a handler
+- Write the handler
+-> this needs to be done in one step, why?
+
+Part 3:
+What tasks might be missing?
+
+
+Ansible Modules to use (check documentation with ansible-doc):
+
+ansible.builtin.package
+ansible.builtin.copy
+ansible.builtin.file
+ansible.builtin.service
+ansible.builtin.template
