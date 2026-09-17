@@ -1,0 +1,10 @@
+0) prepare your lab
+0a) cd ~/ansible-lab ; scripts/preparelab.sh lab09 lab10
+0c) cd into your base directory: cd lab10
+
+
+1. write a playbook to patch the hosts (ansible.builtin.package, state:latest) in the group all but exclude the controlnode
+2. use the serial statement to ensure, first 1 host gets patches, then 2, then the rest
+
+3. adjust the forks parameter in the ansible.cfg from 5 to 1 and later to 2 and execute the debug playbook on all hosts
+-> what happens
