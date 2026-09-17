@@ -1,0 +1,13 @@
+0) prepare your lab
+0a) cd ~/ansible-lab ; scripts/preparelab.sh lab07 lab08
+0b) cd into your base directory: cd lab08
+
+
+1. prepare a small playbook using the ansible.builtin.lineinfile Module
+2. Loop over the group managednodes
+3. write each host into a file like /etc/testfile 
+   -> check the documentation to see how to work with not yet existing files
+4. create backups
+5. delete 2 lines from the file and run the playbook again
+
+what happens?
