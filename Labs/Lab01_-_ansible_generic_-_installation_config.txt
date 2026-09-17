@@ -53,7 +53,12 @@ collections_path  = collections
 inventory = inventory
 ((myansible_venv) ) [user@ip-10-0-4-22 lab01]$
 
-7. check available ansible documentation by executing:
+7. adjust the ansible.cfg and add a forks parameter. Set it to 5
+
+check with ansible-config list where to place it in the ansible.cfg
+
+
+8. check available ansible documentation by executing:
 
 ansible-doc -l
 ansible-doc -t inventory -l

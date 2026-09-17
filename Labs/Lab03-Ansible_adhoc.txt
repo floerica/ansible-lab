@@ -1,0 +1,24 @@
+Ansible Ad-Hoc
+
+0) prepare your lab
+0a) cd ~/ansible-lab ; scripts/preparelab.sh lab02 lab03
+0c) cd into your base directory: cd lab03
+
+1. Check
+1a) verify with ansible --version and ansible-inventory --list that you have a working ansible.cfg and your inventory is correct
+1b) Where do you need to be to have this working?
+
+2. ad-hoc Check
+2a) for all groups you have in the inventory, run ansible -m ping <groupname> to verify you can reach all hosts
+2b) do you see anything strange in the output?
+2c) try to get the uptime from all your hosts
+
+3. setup module
+3a) run the setup module ad-hoc with only one node
+Challenge:
+3b) filter for memory and distribution to get less information
+
+Challenge:
+4. reboot a machine
+4a) use "ansible-doc -l" to find if there is a reboot module
+4b) use it to reboot any machine except your controlnode and note the difference to scVenus when rebooting a client

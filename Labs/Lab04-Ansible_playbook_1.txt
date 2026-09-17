@@ -1,0 +1,26 @@
+This playbook will be written together. you can copy-paste it from here into your editor on lx01
+
+0) prepare your lab
+0a) cd ~/ansible-lab ; scripts/preparelab.sh lab03 lab04
+0c) cd into your base directory: cd lab04
+
+1) Use the below snippet. save it in the playbooks directory from lab04
+
+---
+# control block
+  - name: small helper to gather ansible variables for usage
+    hosts: all
+    become: yes
+    gather_facts: true
+# action block
+    tasks:
+    - name: print ansible_facts
+      ansible.builtin.debug:
+        var: ansible_facts
+    - name: print group membership of hosts
+      ansible.builtin.debug:
+        var: group_names
+    - name: print host_vars per node
+      ansible.builtin.debug:
+        var: hostvars[inventory_hostname]
+...

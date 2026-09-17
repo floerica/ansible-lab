@@ -9,7 +9,7 @@ cd /home/user/ansible-lab
 cp -r $1 $2
 sed -i -e "s/$1/$2/g" $2/ansible.cfg
 
-if [ x$2 = "xlab2" ] ;
+if [ x$2 = "xlab02" ] ;
 then
    echo "initialising inventory"
    myuser=$(cat /etc/myhostname|awk -F. '{print $1}' | awk -F- '{print $2}')
