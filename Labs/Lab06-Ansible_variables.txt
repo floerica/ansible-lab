@@ -1,0 +1,35 @@
+Rework the apache playbook.
+
+0) prepare your lab
+0a) cd ~/ansible-lab ; scripts/preparelab.sh lab05 lab06
+0c) cd into your base directory: cd lab06
+
+
+Part 1. 
+Use as many variables as possible for all things which come in your mind and could be helpful:
+for example:
+
+- package name
+- service name
+- conf-file name
+- html-file
+- document_root: /www
+
+Part 2 (no implementation, just thinking):
+You have been asked to install another webserver on lx04.
+Which variables do you need to change?
+
+Hint: Use the setup module in the ad-hoc mode with a filter to gather information about lx04
+
+-> a possible solution will be shown by trainer
+
+Challenge:
+
+try to implement opening the firewall and selinux modifications
+
+Ansible Modules to use (check documentation with ansible-doc):
+
+ansible.builtin.package
+ansible.builtin.file
+ansible.builtin.service
+ansible.builtin.template
