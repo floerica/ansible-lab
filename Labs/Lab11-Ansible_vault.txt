@@ -1,0 +1,13 @@
+0) prepare your lab
+0a) cd ~/ansible-lab ; scripts/preparelab.sh lab10 lab11
+0c) cd into your base directory: cd lab11
+
+
+1. encrypt a variable for the all group
+see: https://docs.ansible.com/ansible/latest/vault_guide/vault_encrypting_content.html
+
+ansible-vault encrypt_string
+
+2. extend the playbook debug.yml to print your secret variable
+
+3. run the playbook, which additional parameter do you need?
