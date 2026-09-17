@@ -1,0 +1,22 @@
+0) prepare your lab
+0a) cd ~/ansible-lab ; scripts/preparelab.sh lab06 lab07
+0b) cd into your base directory: cd lab07
+
+1)take a look at the ansible-basis-training-lab/roles/lifeofguenter.resolvconf/templates/resolv.conf.j2 
+and recreate it in ansible-lab/lab07/templates
+
+2) define 2 lists variables in the all group like:
+resolv_nameservers:
+  - nameserver1
+  - nameserver2
+resolv_search:
+  - domain1.com
+  - example.com
+
+3) verify with ansible-inventory --host lx02 that the variables are there
+
+4)write a small playbook using ansible.builtin.template to copy that file to /etc/resolv.conf.test on one machine
+
+Challenge:
+Write your own template using some ansible_facts and distribute it to lx02. 
+For example a customized index.html using your apache playbook
