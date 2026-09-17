@@ -1,0 +1,16 @@
+0) prepare your lab
+0a) cd ~/ansible-lab ; git clone git@github.com:floerica/ansible-basis-lab12.git
+0c) cd into your base directory: cd ansible-basis-lab12
+
+
+1. check the status of your lab directory
+- directory structure
+- ansible.cfg
+
+2. Is the inventory functional?
+- fix errors if existing
+
+3. Test the existing playbook playbooks/pb_createdocument_root.yml
+- fix errors if existing
+
+4. Use one of the older playbooks you have written and play with the debugger
