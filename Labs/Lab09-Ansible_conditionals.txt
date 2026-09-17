@@ -1,0 +1,12 @@
+0) prepare your lab
+0a) cd ~/ansible-lab ; scripts/preparelab.sh lab08 lab09
+0c) cd into your base directory: cd lab09
+
+
+1. create a new group database in the inventory
+2. add one host from lx03-05 into it
+3. prepare a playbook to install a database server package (SQLite)
+   - it should only be installed if the physical memory is more than 2GB
+4. prepare a second playbook for all hosts
+   - it should print a message when a host is in the group database,
+     another task should print a message when the host is not in the group database
