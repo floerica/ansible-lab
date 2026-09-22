@@ -29,6 +29,7 @@ ansible [core 2.21.3]
   pyyaml version = 6.0.3 (with libyaml v0.2.5)
 
 4. you can see what has been installed in your venv by inspecting ansible-lab/scripts/requirements.txt
+It includes the modules necessary for ansible+windows and basic ansible usage. it does not include the full collection list.
 
 pip
 ansible-core
@@ -57,8 +58,10 @@ inventory = inventory
 
 check with ansible-config list where to place it in the ansible.cfg
 
+8. check the ansible-config list to see the ansible_managed parameter. Is this still possible?
+If so, please add to the ansible.cfg as well
 
-8. check available ansible documentation by executing:
+9. check available ansible documentation by executing:
 
 ansible-doc -l
 ansible-doc -t inventory -l
