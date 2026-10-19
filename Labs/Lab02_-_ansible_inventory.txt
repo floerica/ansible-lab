@@ -37,6 +37,8 @@ lx03
 
 5a) what do you need to do to use this inventory file with an ansible-inventory run?
 
+ini-files werden nicht gelesen, es sei denn ignore extension ist aktiviert oder Datei wird explizit mit -i <inifile>  eingelesen
+
 6. create a new .ansible.cfg in your home
 6a) inventory should point to your inventory.yml file from lab02
 6b) Test again with ansible web -m ping from your home directory
