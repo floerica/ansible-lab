@@ -1,0 +1,11 @@
+- hosts: conditionals
+  become: true
+  gather_facts: true
+  tasks:
+    - name: install SQlite
+      ansible.builtin.package:
+        name: "sqlite"
+        state: present
+        update_cache: true
+      when:
+        - ansible_facts['memtotal_mb'] > 2000
