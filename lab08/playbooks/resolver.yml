@@ -1,0 +1,9 @@
+---
+- hosts: all
+  become: true
+  gather_facts: true
+  tasks:
+    - name: import resolv.conf to /etc/resolv.conf.test
+      ansible.builtin.template:
+        src: resolv.conf.j2
+        dest: /etc/resolv.conf.test
