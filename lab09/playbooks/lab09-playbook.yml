@@ -1,0 +1,23 @@
+---
+# control block
+  - name: lab09
+    hosts: database
+    become: yes
+    gather_facts: true
+# action block
+    tasks:
+    - name: Gesamten Arbeitsspeicher anzeigen
+      ansible.builtin.debug:
+        msg: "Der Server hat insgesamt {{ ansible_memtotal_mb }} MB RAM."
+    - name: Gesamten Arbeitsspeicher anzeigen
+      ansible.builtin.debug:
+        msg: "Total RAM: {{ ansible_facts['memtotal_mb'] }} MB"
+
+    - name: install sqlite if space available
+      ansible.builtin.package:
+        name: sqlite
+        state: present
+      when: 
+        - ansible_facts['memtotal_mb'] > 200000
+...
+
