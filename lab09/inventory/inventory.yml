@@ -18,4 +18,11 @@ web:
       ansible_host: lx02-user7.ansible-introduction.training.scinnolab.net
   vars:
     document_root: '/www/'
-
+database:
+  hosts:
+    lx03:
+      ansible_host: lx03-user7.ansible-introduction.training.scinnolab.net
+    lx04:
+      ansible_host: lx04-user7.ansible-introduction.training.scinnolab.net
+    lx05:
+      ansible_host: lx05-user7.ansible-introduction.training.scinnolab.net
