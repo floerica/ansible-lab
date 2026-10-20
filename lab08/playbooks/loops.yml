@@ -1,0 +1,10 @@
+- hosts: controlnode
+  become: true
+  gather_facts: true
+  tasks:
+    - name: loop
+      ansible.builtin.lineinfile:
+        path: /tmp/myfile
+        line: "{{ item }}"
+        create: true
+      loop: "{{ groups['managednodes'] }}"
