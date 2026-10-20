@@ -1,0 +1,18 @@
+
+---
+# control block
+  - name: "lab07 lineinfile"
+    hosts: controlnode
+    become: no
+    gather_facts: true
+# action block
+    tasks:
+    - name: lineinfile 
+      ansible.builtin.lineinfile:
+        path: /tmp/testfile
+        line: "{{ item }}"
+        create: true
+        backup: true
+      loop: "{{ groups['managednodes'] }}"
+...
+

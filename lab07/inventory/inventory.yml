@@ -1,0 +1,20 @@
+controlnode:
+  hosts:
+    lx01:
+      ansible_host: controlnode-user3.ansible-introduction.training.scinnolab.net
+managednodes:
+  hosts:
+    lx02:
+      ansible_host: lx02-user3.ansible-introduction.training.scinnolab.net
+    lx03:
+      ansible_host: lx03-user3.ansible-introduction.training.scinnolab.net
+    lx04:
+      ansible_host: lx04-user3.ansible-introduction.training.scinnolab.net
+    lx05:
+      ansible_host: lx05-user3.ansible-introduction.training.scinnolab.net
+
+web:
+  hosts:
+    lx02: {}
+  vars:
+    document_root: "/www"

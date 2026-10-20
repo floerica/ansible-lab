@@ -1,0 +1,46 @@
+---
+# control block
+  - name: "APACHE INSTALL!"
+    hosts: web
+    become: yes
+    gather_facts: true
+# action block
+    tasks:
+    - name: install apache package
+      ansible.builtin.package:
+        name: "httpd"
+        state: present
+    - name: enable apache service
+      ansible.builtin.service:
+        name: "httpd"
+        enabled: true
+    - name: create webdir
+      ansible.builtin.file:
+        path: "{{ document_root }}/html"
+        owner: "apache"
+        group: "apache"
+        mode: '0755'
+        state: 'directory'
+    - name: copy index.html
+      ansible.builtin.copy:
+        src: '~/ansible-basis-training-lab/files/index.html'
+        dest: "{{ document_root }}/html/index.html"
+        owner: "apache"
+        group: "apache"
+        mode: '0644'
+    - name: adjust document root
+      ansible.builtin.template:
+        src: httpd.conf.j2
+        dest: /etc/httpd/conf/httpd.conf
+        owner: "apache"
+        group: "apache"
+        mode: '0644'
+      notify: restart apache
+
+    handlers:
+    - name: restart apache
+      ansible.builtin.service:
+        name: "httpd"
+        state: restarted
+...
+
