@@ -1,0 +1,15 @@
+---
+- hosts: all
+  gather_facts: true
+  tasks:
+    - name: print something if member of database
+      ansible.builtin.debug:
+        msg: "this is printed as {{ inventory_hostname }} is member of the database group"
+      when: inventory_hostname in groups["database"]
+    - name: print something if not member of database
+      ansible.builtin.debug:
+        msg: "this host {{ inventory_hostname}} is not member of the database group"
+      when: inventory_hostname not in groups["database"]
+    - name: print groups of node
+      ansible.builtin.debug:
+        var: group_names
