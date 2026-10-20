@@ -1,0 +1,57 @@
+---
+# control block
+- name: 'Install and Configure Apache'
+  hosts: web
+  become: true
+  gather_facts: true
+  vars_files:
+    - '../vars/default.yml'
+
+  # action block
+  tasks:
+    - name: 'Load OS specific variables'
+      ansible.builtin.include_vars: '../vars/{{ ansible_os_family }}.yml'
+
+    - name: 'Install apache webserver'
+      ansible.builtin.package:
+        name: '{{ apache_package}} '
+        state: 'present'
+
+    - name: 'Create {{ document_root }}/html and set permissions for apache'
+      ansible.builtin.file:
+        path: '{{ document_root }}/html'
+        state: 'directory'
+        owner: '{{ apache_user }}'
+        group: '{{ apache_group }}'
+        mode: '0755'
+
+    - name: 'Copy {{ html_file }} '
+      ansible.builtin.copy:
+        src: '/home/user/ansible-basis-training-lab/files/{{ html_file }}'
+        dest: '{{ document_root }}/html/{{ html_file }}' 
+        owner: '{{ apache_user }}'
+        group: '{{ apache_group }}'
+        mode: '0644'
+
+    - name: 'Write httpd.conf from template'
+      ansible.builtin.template:
+        src: '/home/user/ansible-basis-training-lab/templates/httpd.conf.j2'
+        dest: '{{ apache_conf_file }}'
+        owner: 'root'
+        group: 'root'
+        mode: '0644'
+      notify:
+        - 'Restart apache'
+
+    - name: 'Enable and Start the apache service'
+      ansible.builtin.service:
+        name: 'httpd'
+        enabled: true
+        state: 'started'
+
+  handlers:
+    - name: 'Restart apache'
+      ansible.builtin.service:
+        name: 'httpd'
+        state: 'restarted'
+...
