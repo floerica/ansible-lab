@@ -1,0 +1,30 @@
+---
+# control block
+- name: 'Testing the templating'
+  hosts: web
+  become: true
+  gather_facts: true
+  vars_files:
+    - '../vars/default.yml'
+
+  # action block
+  tasks:
+    - name: 'Load OS specific variables'
+      ansible.builtin.include_vars: '../vars/{{ ansible_os_family }}.yml'
+
+    - name: Templating a resolv test
+      ansible.builtin.template:
+        src: 'resolv.conf.j2'
+        dest: '/etc/resolv.conf.test'
+        owner: 'root'
+        group: 'root'
+        mode: '0644'
+
+# [user@ip-10-0-12-246 ~]$ cat /etc/resolv.conf.test 
+# Ansible managed
+
+# search domain1.com example.com
+# nameserver nameserver1
+# nameserver nameserver2
+# [user@ip-10-0-12-246 ~]$ exit
+...
