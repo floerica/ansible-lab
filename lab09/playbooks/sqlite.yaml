@@ -1,0 +1,13 @@
+---
+- name: SQLite install and configuration
+  hosts: database
+  become: true
+  gather_facts: true
+
+  tasks:
+   - name: Install SQLite package
+     ansible.builtin.package:
+      name: "sqlite"
+      state: present
+     when: ansible_facts['memtotal_mb'] >= 2
+...
