@@ -1,0 +1,70 @@
+---
+- name: Apache setup and configuration
+  hosts: web
+  become: true
+  gather_facts: true
+
+  tasks:
+   - name: Set variables
+     ansible.builtin.set_fact:
+      apache_package: "{{ 'apache2' if ansible_facts['os_family'] == 'Debian' else 'httpd' }}"
+      apache_config_path: "{{ '/etc/apache2/sites-available/000-default.conf' if ansible_facts['os_family'] == 'Debian' else '/etc/httpd/conf/httpd.conf' }}"
+
+   - name: Install Apache web server package
+     ansible.builtin.package:
+      name: "{{ apache_package }}"
+      state: present
+     notify: Restart Apache
+
+   - name: Ensure Apache DocumentRoot
+     ansible.builtin.file:
+      path: "{{ document_root }}/html"
+      state: directory
+      owner: "{{ 'www-data' if ansible_facts['os_family'] == 'Debian' else 'apache' }}"
+      group: "{{ 'www-data' if ansible_facts['os_family'] == 'Debian' else 'apache' }}"
+      mode: '0755'
+
+   - name: Deploy index.html
+     ansible.builtin.template:
+      src: "{{ lookup('ansible.builtin.first_found', file_priority) }}"
+      dest: "{{ document_root }}/html/{{ index_html }}"
+      owner: "{{ 'www-data' if ansible_facts['os_family'] == 'Debian' else 'apache' }}"
+      group: "{{ 'www-data' if ansible_facts['os_family'] == 'Debian' else 'apache' }}"
+      mode: '0644'
+     vars:
+      file_priority:
+       - "templates/{{ index_html }}.j2"
+       - "files/{{ index_html }}"
+
+   - name: Apache httpd.conf from template
+     ansible.builtin.template:
+      src: templates/httpd.conf.j2
+      dest: "{{ apache_config_path }}"
+      owner: root
+      group: root
+      mode: '0644'
+     notify: Restart Apache
+
+   - name: Allow Apache to read custom DocumentRoot
+     community.general.sefcontext:
+      target: "{{ document_root | regex_escape }}/?.*"
+      setype: httpd_sys_content_t
+      state: present
+
+   - name: Apply the SELinux context to the files on disk
+     ansible.builtin.command: "restorecon -irv {{ document_root }}"
+     register: restorecon_result
+     changed_when: '"Relabeled" in restorecon_result.stdout'
+
+   - name: Ensure Apache is enabled and running
+     ansible.builtin.service:
+      name: "{{ apache_package }}"
+      state: started
+      enabled: true
+
+  handlers:
+   - name: Restart Apache
+     ansible.builtin.service:
+      name: "{{ apache_package }}"
+      state: restarted
+...
