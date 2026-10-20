@@ -16,4 +16,6 @@ web:
   hosts:
     lxo2:
       ansible_host: lx02-user7.ansible-introduction.training.scinnolab.net
+  vars:
+    document_root: '/www/'
 
