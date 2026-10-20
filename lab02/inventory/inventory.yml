@@ -13,7 +13,6 @@ managednodes:
     lx05:
       ansible_host: lx05-user6.ansible-introduction.training.scinnolab.net
 
-web:      
+web:
   hosts:
     lx02:
-    
