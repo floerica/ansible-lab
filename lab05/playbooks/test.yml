@@ -1,0 +1,39 @@
+---
+# control block
+  - name: install and adjust apache
+    hosts: web
+    become: yes
+    var: 
+      document_root: /www 
+# action block
+    tasks:
+    - name: install apache
+      ansible.builtin.package:
+        name: apache
+        state: present 
+    - name: start apache
+      ansible.builtin.service:
+        name: apache
+        start: started
+        enabled: true
+    - name: create /www/html
+      ansible.builtin.file:
+        name: /www/html
+        mode: '0755'
+        owner: apache
+        group: apache
+        state: directory
+    - name: copy index.html
+      ansible.builtin.copy:
+        src: ~/ansible-basis-training-lab/files/index.html
+        dest: .
+
+    - name: adjust the default configuration
+      ansible.builtin.template:
+        src: ~/ansible-basis-training-lab/templates/httpd.conf.j2
+        dest: /etc/http/conf/httpd.conf        
+
+    handlers:
+      - name: adjust configuration    
+
+...
