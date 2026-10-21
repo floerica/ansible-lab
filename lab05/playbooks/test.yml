@@ -3,7 +3,7 @@
   - name: install and adjust apache
     hosts: web
     become: yes
-    var: 
+    vars: 
       document_root: /www 
 # action block
     tasks:
