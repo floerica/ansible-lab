@@ -1,0 +1,21 @@
+---
+# control block
+- name: 'Install SQLite when mem over 2GB'
+  hosts: all
+  become: true
+  gather_facts: true
+  vars_files:
+    - '../vars/default.yml'
+
+  # action block
+  tasks:
+  - name: Print if device is in DB
+    ansible.builtin.debug:
+      msg: device {{ inventory_hostname }} is in Database
+    when: "'database' in group_names"
+
+  - name: Print if device is NOT in DB
+    ansible.builtin.debug:
+      msg: device {{ inventory_hostname }} is not in Database
+    when: "'database' not in group_names"
+...
