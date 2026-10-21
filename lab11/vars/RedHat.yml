@@ -1,0 +1,11 @@
+---
+# apache
+apache_package: 'httpd'
+apache_service: 'httpd'
+apache_user: 'apache'
+apache_group: 'apache'
+apache_conf_file: '/etc/httpd/conf/httpd.conf'
+
+#SQLite
+sqlite_package: 'sqlite'
+...

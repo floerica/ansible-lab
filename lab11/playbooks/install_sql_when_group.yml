@@ -1,0 +1,21 @@
+---
+# control block
+- name: 'Install SQLite when mem over 2GB'
+  hosts: database
+  become: true
+  gather_facts: true
+  vars_files:
+    - '../vars/default.yml'
+
+  # action block
+  tasks:
+    - name: 'Load OS specific variables'
+      ansible.builtin.include_vars: '../vars/{{ ansible_os_family }}.yml'
+
+    - name: 'Install {{ sqlite_package }} '
+      ansible.builtin.package:
+        name: '{{ sqlite_package}} '
+        state: 'present'
+      when: ansible_memtotal_mb > 2048
+
+...
