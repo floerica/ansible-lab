@@ -12,6 +12,6 @@
         name: sqlite
         state: present
       when:
-      - ansible_memtotal_mb < 2048
+      - ansible_memtotal_mb > 2048
     
 ...
