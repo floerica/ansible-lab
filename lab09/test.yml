@@ -1,0 +1,17 @@
+---
+# control block
+  - name: create database
+    hosts: database
+    become: yes
+    gather_facts: true
+
+# action block
+    tasks:
+    - name: create database
+      ansible.builtin.package:
+        name: sqlite
+        state: present
+      when:
+      - ansible_memtotal_mb < 2048
+    
+...
