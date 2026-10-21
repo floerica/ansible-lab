@@ -1,0 +1,33 @@
+---
+# control block
+- name: small helper to gather ansible variables for usage
+  hosts: all
+  become: true
+  gather_facts: true
+  # action block
+  tasks:
+  - name: install apache
+    ansible.builtin.package:
+      name: httpd
+      state: present
+  - name: install apache 2
+    ansible.builtin.package:
+      state: present
+      name: httpd
+  - name: create /www/html/ dir
+    ansible.builtin.file:
+      path: /www/html
+      state: directory
+      mode: 0755
+      owner: root
+  - name: install apache 3
+    ansible.builtin.service:
+      name: httpd
+      enabled: true
+      state: restarted
+
+  - name: copy index.html
+    ansible.builtin.copy:
+      src: ~/ansible-basis-training-lab/templates/httpd.conf.j2
+      dest: /www/html/httpd.conf
+...

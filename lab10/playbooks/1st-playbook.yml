@@ -1,0 +1,21 @@
+---
+# control block
+  - name: small helper to gather ansible variables for usage
+    hosts: all:!controlnode
+    serial:
+      - 1
+      - 2
+      - 100%
+    become: yes
+    gather_facts: true
+# action block
+    tasks:
+    - name: print ansible_facts
+      ansible.builtin.debug:
+        msg: "{{ ansible_facts['os_family'] }}"
+    - name: update os
+      ansible.builtin.package:
+        name: "*"
+        state: latest
+...
+
