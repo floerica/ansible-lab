@@ -1,11 +1,15 @@
 ---
 # control block
-- name: 'update all but controlnode'
+- name: 'update all but controlnode, serial 1,2'
   hosts: all
   become: true
   gather_facts: true
   vars_files:
     - '../vars/default.yml'
+  serial:
+    - 1
+    - 2
+    - '100%'
 
   # action block
   tasks:
