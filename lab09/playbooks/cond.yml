@@ -4,11 +4,11 @@
   tasks:
     - name: print something if member of database
       ansible.builtin.debug:
-        msg: "this is printed as {{ inventory_hostname }} is member of the database group"
+        msg: "this is printed as {{ inventory_hostname }} , also known as {{ ansible_host }} is member of the database group"
       when: inventory_hostname in groups["database"]
     - name: print something if not member of database
       ansible.builtin.debug:
-        msg: "this host {{ inventory_hostname}} is not member of the database group"
+        msg: "this host {{ inventory_hostname}} , also known as {{ ansible_host }}  is not member of the database group"
       when: inventory_hostname not in groups["database"]
     - name: print groups of node
       ansible.builtin.debug:
