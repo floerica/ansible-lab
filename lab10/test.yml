@@ -1,0 +1,19 @@
+---
+# control block
+  - name: create database
+    hosts: all:!controlnode
+    serial:
+      - 1
+      - 2
+      - 100%
+    become: yes
+    gather_facts: true
+
+# action block
+    tasks:
+    - name: patch
+      ansible.builtin.package:
+        name: '*'
+        state: latest
+    
+...
