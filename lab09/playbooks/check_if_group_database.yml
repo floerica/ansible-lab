@@ -8,6 +8,7 @@
     - '../vars/default.yml'
 
   # action block
+  tasks:
   - name: Print if device is in DB
     ansible.builtin.debug:
       msg: device {{ inventory_hostname }} is in Database
