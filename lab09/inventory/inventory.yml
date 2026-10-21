@@ -1,6 +1,9 @@
 database:
   hosts:
+    lx01:
+    lx02:
     lx03:
+    lx04:
 controlnode:
   hosts:
     lx01:
