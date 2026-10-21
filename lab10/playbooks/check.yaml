@@ -1,0 +1,17 @@
+---
+- name: Database Checker
+  hosts: all
+  gather_facts: false 
+
+  tasks:
+   - name: In Database group
+     ansible.builtin.debug:
+       msg: "{{ inventory_hostname }} is a database server"
+     when: "'database' in group_names"
+   
+   - name: Not in Database group
+     ansible.builtin.debug:
+       msg: "{{ inventory_hostname }} is NOT a database server"
+     when: "'database' not in group_names"
+
+...
