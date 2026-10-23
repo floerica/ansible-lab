@@ -1,5 +1,5 @@
 pip
-ansible-core
+ansible-core==2.21.4
 ansible
 ansible-lint
 yamllint
