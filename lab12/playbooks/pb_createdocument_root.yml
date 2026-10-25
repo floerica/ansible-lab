@@ -1,0 +1,12 @@
+---
+- name: create a document root
+   hosts: web
+  become: false
+  tasks:
+    - name: ensure document_root exists
+      ansible.builtin.fil:
+        path: {{ document_root }}
+        state: directory
+	mode: 755
+        owner: root
+	group: wheel
