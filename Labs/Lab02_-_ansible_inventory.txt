@@ -36,6 +36,7 @@ lx02
 lx03
 
 5a) what do you need to do to use this inventory file with an ansible-inventory run?
+# Change the .ini in the file name. Change the configuration to take .ini files for inventory. 
 
 6. create a new .ansible.cfg in your home
 6a) inventory should point to your inventory.yml file from lab02
