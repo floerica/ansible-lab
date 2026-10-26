@@ -1,0 +1,55 @@
+---
+- hosts: web
+  become: true
+  gather_facts: true
+  tasks:
+    - name: Load a variable file based on the OS type, or a default if not found.
+      ansible.builtin.include_vars: "{{ lookup('ansible.builtin.first_found', params) }}"
+      vars:
+        params:
+          files:
+            - default.yml
+          paths:
+            - '../inventory/group_vars'
+
+    - name: "install {{ webserver[ansible_facts['os_family']].pkgs }}"
+      ansible.builtin.package:
+        name: "{{ webserver[ansible_facts['os_family']].pkgs }}"
+        state: present
+        update_cache: true
+    - name: create "{{ webserver[ansible_facts['os_family']].html_root }}"
+      ansible.builtin.file:
+        path: "{{ webserver[ansible_facts['os_family']].html_root }}"
+        mode: 0755
+        owner: "{{ webserver[ansible_facts['os_family']].user }}"
+        group: "{{ webserver[ansible_facts['os_family']].group }}"
+        state: directory
+    - name: copy apache config
+      ansible.builtin.template:
+        src: ../templates/httpd.conf.j2
+        dest: "{{ webserver[ansible_facts['os_family']].conf_file }}"
+        mode: 0644
+        owner: "{{ webserver[ansible_facts['os_family']].user }}"
+        group: "{{ webserver[ansible_facts['os_family']].group }}"
+        backup: true
+      notify:
+        - restart-httpd
+    - name: copy index.html
+      ansible.builtin.template:
+        src: ../files/index.html
+        dest: "{{ webserver[ansible_facts['os_family']].html_root }}/index.html"
+        mode: 0644
+        owner: "{{ webserver[ansible_facts['os_family']].user }}"
+        group: "{{ webserver[ansible_facts['os_family']].group }}"
+    - name: enable and start "{{ webserver[ansible_facts['os_family']].service.name }}"
+      ansible.builtin.service:
+        name: "{{ webserver[ansible_facts['os_family']].service.name }}"
+        state: "{{ webserver[ansible_facts['os_family']].service.state }}"
+        enabled: "{{ webserver[ansible_facts['os_family']].service.enabled }}"
+    - name: Flush handlers to make sure httpd is configured before the tests
+      meta: flush_handlers
+  handlers:
+    - name: restart-httpd
+      ansible.builtin.service:
+        name: "{{ webserver[ansible_facts['os_family']].service.name }}"
+        state: restarted
