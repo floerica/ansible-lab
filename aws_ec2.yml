@@ -1,0 +1,19 @@
+---
+plugin: amazon.aws.aws_ec2
+regions:
+  - eu-north-1
+groups:
+  controlnodes: inventory_hostname.startswith('controlnode')
+  dcvservers: inventory_hostname.startswith('dcv-server')
+  managednodes: inventory_hostname.startswith('lx')
+keyed_groups:
+  - key: ec2_tags
+    prefix: 'group'
+compose:
+  ansible_host: instance_id
+route53_enabled: true
+route53_hostnames:
+  - ansible-introduction.training.scinnolab.net
+use_ssm_inventory: true
+...
+
