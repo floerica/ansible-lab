@@ -1,0 +1,105 @@
+# control block
+  - name: playbook nginx for web group
+    hosts: web
+    become: true
+    gather_facts: true
+    vars:
+      document_root: "/www"
+      html_root: "{{ document_root }}/html"
+      pkgs:
+        - httpd
+        - firewalld
+      service_name: "httpd"
+      service_state: "started"
+      service_enable: "true"
+      config_dir: "/etc/httpd/conf/"
+      config_file_name: "httpd.conf"
+      html_file_name: "index.html"
+      update_cache_pkgs: false
+
+    tasks:
+    - name: Part 1 - Installer le serveur web Apache
+      ansible.builtin.package:
+        name: "{{ pkgs }}"
+        state: present
+        update_cache: "{{ update_cache_pkgs }}"
+
+    - name: Part 1 - Activer et démarrer le service Apache
+      ansible.builtin.service:
+        name: "{{ service_name }}"
+        state: "{{ service_state }}"  # need start
+        enabled: "{{ service_enable }}" # enable
+
+    - name: Part 1 - Assurer la présence du dossier racine /www
+      ansible.builtin.file:
+        path: "{{ html_root }}"
+        state: directory
+        owner: apache
+        group: apache
+        mode: '0755'
+
+    ##### SELINUX ######
+    - name: SELinux - Définir le contexte pour le dossier racine personnalisé /www
+      community.general.sefcontext:
+        target: "{{ item }}"
+        setype: httpd_sys_content_t
+        state: present
+      loop:
+        - "{{ document_root }}(/.*)?"
+      register: selinux_context
+
+    - name: SELinux - Appliquer le nouveau contexte de fichiers (restorecon)
+      ansible.builtin.command: "restorecon -R {{ document_root }}"
+      when: selinux_context.changed
+
+    - name: Part 1 - Copier le fichier index.html d'origine
+      ansible.builtin.template:
+        src: "templates/{{ html_file_name }}.j2"
+        dest: "{{ html_root }}/{{ html_file_name }}"
+        owner: apache
+        group: apache
+        mode: '0644'
+
+    # PART 2
+    - name: Part 2 - Ajuster la configuration par défaut d'Apache
+      ansible.builtin.template:
+        src: "templates/{{ config_file_name }}.j2"
+        dest: "{{ config_dir }}{{ config_file_name }}"
+        owner: root
+        group: root
+        mode: '0644'
+      notify: restart apache
+
+    ##### FIREWALL #######
+    - name: Firewall - S'assurer que firewalld est démarré
+      ansible.builtin.systemd:
+        name: firewalld
+        state: started
+        enabled: true
+
+    - name: Firewall - Autoriser le trafic HTTP de manière permanente
+      ansible.posix.firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: true
+
+    - name: Flush
+      meta: flush_handlers
+    ##### VERIFICATIONS ######
+    - name: test webserver from another host
+      ansible.builtin.uri:
+        url: http://lx02
+        return_content: true
+      register: result
+      delegate_to: localhost
+    - name: dump uri result
+      ansible.builtin.debug:
+        var: result.content
+
+    # handlers
+    handlers:
+      - name: restart apache
+        ansible.builtin.service:
+          name: httpd
+          state: restarted
