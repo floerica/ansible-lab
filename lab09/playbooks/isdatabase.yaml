@@ -1,0 +1,15 @@
+- hosts: all
+  become: true
+  gather_facts: true
+  tasks:
+    - name: debug if in host
+      ansible.builtin.debug:
+        msg: "Ce hôte appartient au groupe database"
+      when:
+        - "'database' in group_names"
+
+    - name: debug if not in host
+      ansible.builtin.debug:
+        msg: "Ce hôte NE appartient PAS au groupe database"
+      when:
+        - "'database' not in group_names"
