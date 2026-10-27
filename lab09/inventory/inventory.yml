@@ -15,7 +15,6 @@ managednodes:
 web:
   hosts:
     lx02:
-      ansible_host: lx02-user2.ansible-introduction.training.scinnolab.net
 database:
   hosts:
     lx[03:05]:

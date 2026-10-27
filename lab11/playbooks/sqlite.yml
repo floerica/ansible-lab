@@ -1,0 +1,11 @@
+---
+- name: Install SQLite on hosts with enough memory
+  hosts: database
+  become: true
+
+  tasks:
+    - name: Install SQLite
+      ansible.builtin.package:
+        name: sqlite
+        state: present
+      when: ansible_facts['memtotal_mb'] > 2048
