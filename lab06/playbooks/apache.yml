@@ -35,7 +35,7 @@
       notify:
         - restart-httpd
     - name: copy index.html
-      ansible.builtin.template:
+      ansible.builtin.copy:
         src: ../files/index.html
         dest: "{{ webserver[ansible_facts['os_family']].html_root }}/index.html"
         mode: 0644

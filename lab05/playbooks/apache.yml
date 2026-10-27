@@ -40,7 +40,7 @@
       notify:
         - restart-httpd
     - name: copy index.html
-      ansible.builtin.template:
+      ansible.builtin.copy:
         src: ../files/index.html
         dest: /home/www/html/index.html
         mode: 0644

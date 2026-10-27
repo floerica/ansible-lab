@@ -1,0 +1,26 @@
+
+webserver:
+  RedHat:
+    service:
+      name: httpd
+      state: started
+      enabled: true
+    conf_file: /etc/httpd/httpd.conf
+    html_root: /www/html
+    document_root: /www
+    user: apache
+    group: apache
+    pkgs: 
+      - httpd
+  Debian:
+    conf_file: /etc/apache2/apache2.conf
+    document_root: /www
+    html_root: /www/html
+    service:
+      name: apache2
+      state: started
+      enabled: true
+    user: apache
+    group: apache
+    pkgs: 
+      - apache2

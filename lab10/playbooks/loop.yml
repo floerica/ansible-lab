@@ -1,0 +1,16 @@
+---
+- name: Write all managed nodes into /etc/testfile
+  hosts: managednodes
+  become: true
+
+  tasks:
+    - name: Add one line per host
+      ansible.builtin.lineinfile:
+        path: /etc/testfile
+        line: "{{ item }}"
+        create: true
+        backup: true
+        owner: root
+        group: root
+        mode: "0644"
+      loop: "{{ groups['managednodes'] }}"
