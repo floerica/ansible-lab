@@ -29,9 +29,10 @@ ansible [core 2.21.3]
   pyyaml version = 6.0.3 (with libyaml v0.2.5)
 
 4. you can see what has been installed in your venv by inspecting ansible-lab/scripts/requirements.txt
-It includes the modules necessary for ansible+windows and basic ansible usage. it does not include the full collection list.
+It includes the modules necessary for ansible+windows and basic ansible usage. it does include the full collection list.
 
 pip
+ansible
 ansible-core
 pywinrm>=0.4.0
 pywinrm[credssp]>=0.4.0
@@ -49,19 +50,23 @@ Output will be explained by the trainer (ansible project structure)
 output like this:
 
 ((myansible_venv) ) [user@ip-10-0-4-22 lab01]$ ansible-config view
-[defaults]
-collections_path  = collections
-inventory = inventory
 ((myansible_venv) ) [user@ip-10-0-4-22 lab01]$
 
-7. adjust the ansible.cfg and add a forks parameter. Set it to 5
+7. create a ansible.cfg where all sections are inside but all parametes are disabled
+
+ansible-config init --disabled -t all >ansible.cfg
+
+8. adjust the ansible.cfg and uncomment and set:
+
+- forks parameter. Set it to 5
+- set inventory = inventory
 
 check with ansible-config list where to place it in the ansible.cfg
 
-8. check the ansible-config list to see the ansible_managed parameter. Is this still possible?
+9. check the ansible-config list to see the ansible_managed parameter. Is this still possible?
 If so, please add to the ansible.cfg as well
 
-9. check available ansible documentation by executing:
+10. check available ansible documentation by executing:
 
 ansible-doc -l
 ansible-doc -t inventory -l
