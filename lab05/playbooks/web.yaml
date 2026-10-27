@@ -35,15 +35,15 @@
       ansible.builtin.template:
         src: ~/ansible-basis-training-lab/templates/httpd.conf.j2
         dest: /etc/httpd/conf/httpd.conf
-        mode: "0755"
+        mode: "0644"
         owner: apache
         group: apache
         backup: true
       notify:
-        - restart-httpd
+        - restart httpd
 
   handlers:
-   - name: restart-httpd
+   - name: restart httpd
      ansible.builtin.service:
        name: httpd
        state: restarted
