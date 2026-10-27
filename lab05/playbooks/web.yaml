@@ -1,0 +1,59 @@
+---
+# control block
+- name: Install and configure an Apache web server
+  hosts: web
+  become: true
+  gather_facts: true
+  # execution block
+  vars:
+    document_root: "/www"
+  tasks:
+    - name: Install Apache webserver
+      ansible.builtin.package:
+        name: httpd
+        state: present
+        update_cache: true
+    - name: Enable and start Apache webserver
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: true
+    - name: Create /www/html
+      ansible.builtin.file:
+        path: "/www/html"
+        state: directory
+        owner: apache
+        group: apache
+        mode: "0755"
+    - name: Copy index.html
+      ansible.builtin.template:
+        src: "~/ansible-basis-training-lab/templates/index.html.j2"
+        dest: "/www/html/index.html"
+        owner: apache
+        group: apache
+        mode: "0644"
+    - name: Copy httpd.conf
+      ansible.builtin.template:
+        src: "~/ansible-basis-training-lab/templates/httpd.conf.j2"
+        dest: "/etc/httpd/conf/httpd.conf"
+        owner: apache
+        group: apache
+        mode: "0644"
+        backup: true
+      notify: Restart Apache
+    - name: Ensure SELinux file context for Apache web content
+      community.general.sefcontext:
+        target: "/www(/.*)?"
+        setype: httpd_sys_content_t
+        state: present
+    - name: Restore SELinux contexts on web directory
+      ansible.builtin.command:
+        cmd: restorecon -Rv /www
+      register: restorecon_result
+      changed_when: restorecon_result.stdout | length > 0
+  handlers:
+    - name: Restart Apache
+      ansible.builtin.service:
+        name: httpd
+        state: restarted
+...
