@@ -1,0 +1,53 @@
+# control block
+  - name: playbook nginx for web group
+    hosts: web
+    become: true
+    gather_facts: true
+    vars:
+      document_root: "/www"
+
+    tasks:
+    - name: Part 1 - Installer le serveur web Apache
+      ansible.builtin.package:
+        name: httpd
+        state: present
+        update_cache: true
+
+    - name: Part 1 - Activer et démarrer le service Apache
+      ansible.builtin.service:
+        name: httpd
+        state: started # need start
+        enabled: true # enable
+
+    - name: Part 1 - Assurer la présence du dossier racine /www
+      ansible.builtin.file:
+        path: "{{ document_root }}/html"
+        state: directory
+        owner: apache
+        group: apache
+        mode: '0755'
+
+    - name: Part 1 - Copier le fichier index.html d'origine
+      ansible.builtin.copy:
+        src: ~/ansible-basis-training-lab/files/index.html
+        dest: "{{ document_root }}/html/index.html"
+        owner: apache
+        group: apache
+        mode: '0644'
+
+    # PART 2
+    - name: Part 2 - Ajuster la configuration par défaut d'Apache
+      ansible.builtin.template:
+        src: templates/httpd.conf.j2
+        dest: /etc/httpd/conf/httpd.conf
+        owner: root
+        group: root
+        mode: '0644'
+      notify: restart apache
+
+    # handlers
+    handlers:
+      - name: restart apache
+        ansible.builtin.service:
+          name: httpd
+          state: restarted
