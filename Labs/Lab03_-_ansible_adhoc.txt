@@ -15,8 +15,10 @@ Ansible Ad-Hoc
 
 3. setup module
 3a) run the setup module ad-hoc with only one node
+ansible -m setup lx02
 Challenge:
 3b) filter for memory and distribution to get less information
+ansible -m setup -a "filter=ansible_memtotal_mb,ansible_distribution" lx02
 
 Challenge:
 4. reboot a machine
