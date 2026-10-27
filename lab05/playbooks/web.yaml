@@ -1,0 +1,49 @@
+---
+- name: Install apache webserver
+  hosts: web
+  become: true
+
+  tasks:
+    - name: Install httpd
+      ansible.builtin.package:
+        name: httpd
+        state: present
+        use: dnf
+
+    - name: Start httpd
+      ansible.builtin.service:
+        name: httpd
+        state: started
+
+    - name: Create /www/html
+      ansible.builtin.file:
+        path: /www/html
+        state: directory
+        mode: '0755'
+        owner: apache
+        group: apache
+
+    - name: copy index.html
+      ansible.builtin.copy:
+        src: ~/ansible-basis-training-lab/files/index.html
+        dest: /www/html/
+        owner: apache
+        group: apache
+        mode: "0755"
+
+    - name: copy apache config
+      ansible.builtin.template:
+        src: ~/ansible-basis-training-lab/templates/httpd.conf.j2
+        dest: /etc/httpd/conf/httpd.conf
+        mode: "0755"
+        owner: apache
+        group: apache
+        backup: true
+      notify:
+        - restart-httpd
+
+  handlers:
+   - name: restart-httpd
+     ansible.builtin.service:
+       name: httpd
+       state: restarted
