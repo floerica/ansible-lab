@@ -9,10 +9,10 @@ This playbook will be written together. you can copy-paste it from here into you
 ---
 # control block
   - name: small helper to gather ansible variables for usage
-    hosts: all
-    become: yes
+    hosts: lx02
+    become: true
     gather_facts: true
-# action block
+# execution block
     tasks:
     - name: print ansible_facts
       ansible.builtin.debug:
