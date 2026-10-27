@@ -1,0 +1,6 @@
+resolv_nameservers:
+  - nameserver1
+  - nameserver2
+resolv_search:
+  - domain1.com
+  - example.com
