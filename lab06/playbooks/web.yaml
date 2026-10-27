@@ -1,0 +1,68 @@
+---
+# control block
+- name: Install and configure an Apache web server
+  hosts: web
+  become: true
+  gather_facts: true
+  # execution block
+  vars:
+    package: httpd
+    service: httpd
+    html_file: "/www/html/index.html"
+    conf_file: "/etc/httpd/conf/httpd.conf"
+    document_root: "/www"
+    permissions:
+      owner: "apache"
+      group: "apache"
+      file: "0644"
+      folder: "0755"
+  tasks:
+    - name: Install Apache webserver
+      ansible.builtin.package:
+        name: "{{ service }}"
+        state: present
+        update_cache: true
+    - name: Enable and start Apache webserver
+      ansible.builtin.service:
+        name: "{{ package }}"
+        state: started
+        enabled: true
+    - name: Create /www/html
+      ansible.builtin.file:
+        path: "{{ document_root }}/html"
+        state: directory
+        owner: "{{ permissions.owner }}"
+        group: "{{ permissions.group }}"
+        mode: "{{ permissions.folder }}"
+    - name: Copy index.html
+      ansible.builtin.template:
+        src: "~/ansible-basis-training-lab/templates/index.html.j2"
+        dest: "{{ html_file }}"
+        owner: "{{ permissions.owner }}"
+        group: "{{ permissions.group }}"
+        mode: "{{ permissions.file }}"
+    - name: Copy httpd.conf
+      ansible.builtin.template:
+        src: "~/ansible-basis-training-lab/templates/httpd.conf.j2"
+        dest: "{{ conf_file }}"
+        owner: "{{ permissions.owner }}"
+        group: "{{ permissions.group }}"
+        mode: "{{ permissions.file }}"
+        backup: true
+      notify: Restart Apache
+    - name: Ensure SELinux file context for Apache web content
+      community.general.sefcontext:
+        target: "/www(/.*)?"
+        setype: httpd_sys_content_t
+        state: present
+    - name: Restore SELinux contexts on web directory
+      ansible.builtin.command:
+        cmd: restorecon -Rv /www
+      register: restorecon_result
+      changed_when: restorecon_result.stdout | length > 0
+  handlers:
+    - name: Restart Apache
+      ansible.builtin.service:
+        name: "{{ service }}"
+        state: restarted
+...
