@@ -8,4 +8,5 @@
       ansible.builtin.package:
         name: sqlite
         state: present
+        use: dnf
       when: ansible_facts['memtotal_mb'] > 2048
