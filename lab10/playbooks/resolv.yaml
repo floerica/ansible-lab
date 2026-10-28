@@ -1,0 +1,13 @@
+---
+- name: Deploy test resolv.conf
+  hosts: lx02
+  become: true
+
+  tasks:
+    - name: Render resolv.conf template
+      ansible.builtin.template:
+        src: resolv.conf.j2
+        dest: /etc/resolv.conf.test
+        owner: root
+        group: root
+        mode: "0644"
