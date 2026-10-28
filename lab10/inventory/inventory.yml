@@ -1,0 +1,22 @@
+all:
+  vars:
+    resolv_nameservers:
+      - nameserver1
+      - nameserver2
+    resolv_search:
+      - domain1.com
+      - example.com
+controlnode:
+  hosts:
+    lx01:
+      ansible_host: controlnode-user3.ansible-introduction.training.scinnolab.net
+managednodes:
+  hosts:
+    lx[02:05]:
+      ansible_host: "{{ inventory_hostname }}-user3.ansible-introduction.training.scinnolab.net"
+web:
+  hosts:
+    lx02: {}
+database:
+  hosts:
+    lx[03:05]: {}
