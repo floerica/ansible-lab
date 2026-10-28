@@ -8,3 +8,8 @@
 
 3. adjust the forks parameter in the ansible.cfg from 5 to 1 and later to 2 and execute the debug playbook on all hosts
 -> what happens
+With -f option
+
+Forks=5 : 13.991s
+Forks=1 : 19.333s
+Forks=2 : 15.346
