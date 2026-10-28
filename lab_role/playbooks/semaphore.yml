@@ -1,0 +1,5 @@
+- hosts: lx03
+  become: true
+
+  roles:
+  - ansible-role-semaphore

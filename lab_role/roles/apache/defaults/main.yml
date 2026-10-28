@@ -1,0 +1,10 @@
+---
+# defaults file for apache
+apache_common_apache_service_state: started
+apache_common_apache_service_enabled: true
+apache_common_apache_documentroot: /www
+apache_common_apache_htmlroot: /www/html
+apache_common_apache_indextemplate: index.html.j2
+apache_common_apache_indexfile: index.html
+apache_common_apache_dirperm: '0755'
+apache_common_apache_fileperm: '0644'

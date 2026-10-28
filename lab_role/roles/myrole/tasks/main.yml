@@ -1,0 +1,5 @@
+---
+# tasks file for myrole
+- name: role start
+  ansible.builtin.debug:
+    msg: "role myrole has started"
