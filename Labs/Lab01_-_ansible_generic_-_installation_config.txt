@@ -34,6 +34,7 @@ It includes the modules necessary for ansible+windows and basic ansible usage. i
 pip
 ansible
 ansible-core
+ansible-lint
 pywinrm>=0.4.0
 pywinrm[credssp]>=0.4.0
 pykerberos
