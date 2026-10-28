@@ -1,0 +1,14 @@
+---
+- name: Patch hosts in serial
+  hosts: all:!controlnode
+  become: true
+  #serial:
+  #  - 1
+  #  - 2
+  tasks:
+    - name: Updates all packages to latest
+      ansible.builtin.package:
+        name: "*"
+        state: latest
+        update_cache: true
+...

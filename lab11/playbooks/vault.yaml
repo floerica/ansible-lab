@@ -1,0 +1,9 @@
+---
+- name: Display encrypted variable with Ansible Vault
+  hosts: all
+  tasks:
+    - name: Print secret variable
+      ansible.builtin.debug:
+        var: secret_variable
+      no_log: true
+...
