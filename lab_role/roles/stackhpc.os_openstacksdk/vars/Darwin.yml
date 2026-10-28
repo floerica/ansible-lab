@@ -1,4 +1,0 @@
----
-os_openstacksdk_package_dependencies:
-  - python3
-  - virtualenv
