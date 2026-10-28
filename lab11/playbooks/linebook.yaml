@@ -1,0 +1,12 @@
+---
+- hosts: lx01
+  become: true
+  gather_facts: true
+  tasks:
+    - name: loop over the managednodes, print them into a file
+      ansible.builtin.lineinfile:
+        path: /etc/testfile
+        line: "{{ item }}"
+        create: true
+        backup: true
+      loop: "{{ groups['managednodes'] }}"
