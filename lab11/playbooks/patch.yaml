@@ -1,0 +1,14 @@
+---
+- name: Patch all hosts except the control node
+  hosts: all:!controlnode
+  become: true
+  serial:
+    - 1
+    - 2
+    - "100%"
+
+  tasks:
+    - name: Update httpd
+      ansible.builtin.package:
+        name: "httpd"
+        state: latest
