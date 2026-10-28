@@ -54,11 +54,14 @@
     permanent: true
     immediate: true
     offline: true
+  tags:
+    - never
+    - firewall
 - name: Flush handlers to make sure httpd is configured before the tests
   meta: flush_handlers
 - name: test webserver from another host
   ansible.builtin.uri:
-    url: "http://{{ item }}"
+    url: "http://{{ hostvars[item].ansible_host }}"
     return_content: true
   register: result
   loop: "{{ groups['web'] }}"
