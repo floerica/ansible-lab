@@ -1,0 +1,7 @@
+---
+- name: playbook to call myrole
+  hosts: web
+  become: true
+  gather_facts: true
+  roles:
+    - testrole
