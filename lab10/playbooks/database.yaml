@@ -1,0 +1,18 @@
+---
+- name: Install SQLite on host with +=2GB memory
+  hosts: managednodes
+  become: true
+  tasks:
+    - name: Display host physical memory
+      ansible.builtin.debug:
+        msg: "{{ inventory_hostname }}: {{ ansible_facts['memtotal_mb'] }}MB"
+    - name: Display if host is member of database group
+      ansible.builtin.debug:
+        msg: "{{ inventory_hostname }} is a member of database group"
+      when: "'database' in group_names"
+    - name: Install SQLite package
+      ansible.builtin.package:
+        name: sqlite
+        state: present
+      when: ansible_facts['memtotal_mb'] >= 2000
+...

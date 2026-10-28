@@ -1,0 +1,14 @@
+---
+- name: Copy /etc/resolv.conf using template and group variables
+  hosts: lx03
+  become: true
+  # execution block
+  tasks:
+    - name: Copy /etc/resolv.conf template on host
+      ansible.builtin.template:
+        src: templates/resolv.conf.j2
+        dest: /etc/resolv.conf
+        owner: root
+        group: root
+        mode: "0644"
+...

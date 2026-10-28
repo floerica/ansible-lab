@@ -1,0 +1,14 @@
+---
+- name: Loop over managednodes group
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Write hostname into file
+      ansible.builtin.lineinfile:
+        path: "/etc/testfile"
+        line: "{{ item }}"
+        create: true
+        backup: true
+        mode: "0644"
+      loop: "{{ groups['managednodes'] }}"
+...
