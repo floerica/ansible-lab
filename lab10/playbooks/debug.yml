@@ -1,0 +1,17 @@
+---
+# control block
+  - name: small helper to gather ansible variables for usage
+    hosts: all
+    become: yes
+    gather_facts: true
+# action block
+    tasks:
+    - name: print ansible_facts
+      ansible.builtin.debug:
+        var: ansible_facts
+    - name: print group membership of hosts
+      ansible.builtin.debug:
+        var: group_names
+    - name: print host_vars per node
+      ansible.builtin.debug:
+        var: hostvars[inventory_hostname]

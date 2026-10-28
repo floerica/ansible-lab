@@ -1,0 +1,12 @@
+---
+- hosts: all:!controlnode
+  become: true
+  gather_facts: true
+  serial:
+    - 1
+    - 2
+  tasks:
+    - name: patch
+      ansible.builtin.package:
+        name: '*'
+        state: latest
