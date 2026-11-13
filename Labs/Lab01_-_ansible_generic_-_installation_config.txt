@@ -71,3 +71,9 @@ If so, please add to the ansible.cfg as well
 
 ansible-doc -l
 ansible-doc -t inventory -l
+
+11. Finalize the lab (ensure you are in your personal created branch and NOT in main -> git status)
+cd ~/ansible-lab
+git add Lab01 
+git commit -m 'some description'
+git push

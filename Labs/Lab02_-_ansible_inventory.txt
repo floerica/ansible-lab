@@ -43,3 +43,9 @@ lx03
 why does it work now?
 6c) Cleanup -> rename this .ansible.cfg file
 
+7. Finalize the lab (ensure you are in your personal created branch and NOT in main -> git status)
+cd ~/ansible-lab
+git add Lab02
+git commit -m 'some description'
+git push
+

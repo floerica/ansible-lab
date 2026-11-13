@@ -37,3 +37,10 @@ ansible.builtin.copy
 ansible.builtin.file
 ansible.builtin.service
 ansible.builtin.template
+
+4. Finalize the lab (ensure you are in your personal created branch and NOT in main -> git status)
+cd ~/ansible-lab
+git add Lab05
+git commit -m 'some description'
+git push
+

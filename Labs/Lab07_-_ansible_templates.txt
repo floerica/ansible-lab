@@ -20,3 +20,10 @@ resolv_search:
 Challenge:
 Write your own template using some ansible_facts and distribute it to lx02. 
 For example a customized index.html using your apache playbook
+
+5. Finalize the lab (ensure you are in your personal created branch and NOT in main -> git status)
+cd ~/ansible-lab
+git add Lab07
+git commit -m 'some description'
+git push
+

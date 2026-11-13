@@ -10,3 +10,10 @@
 4. prepare a second playbook for all hosts
    - it should print a message when a host is in the group database,
      another task should print a message when the host is not in the group database
+
+5. Finalize the lab (ensure you are in your personal created branch and NOT in main -> git status)
+cd ~/ansible-lab
+git add Lab09
+git commit -m 'some description'
+git push
+

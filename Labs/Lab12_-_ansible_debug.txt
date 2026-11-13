@@ -1,6 +1,6 @@
 0) prepare your lab
-0a) cd ~/ansible-lab ; git clone git@github.com:floerica/ansible-basis-lab12.git
-0c) cd into your base directory: cd ansible-basis-lab12
+0a) cd ~/ansible-lab 
+0c) cd into your base directory: cd lab12
 
 
 1. check the status of your lab directory
@@ -14,3 +14,10 @@
 - fix errors if existing
 
 4. Use one of the older playbooks you have written and play with the debugger
+
+11. Finalize the lab (ensure you are in your personal created branch and NOT in main -> git status)
+cd ~/ansible-lab
+git add Lab12
+git commit -m 'some description'
+git push
+
