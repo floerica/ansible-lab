@@ -36,7 +36,8 @@ lx02
 lx03
 
 5a) what do you need to do to use this inventory file with an ansible-inventory run?
-
+    - entweder mit -i oder in der ansible.cfg als inventory path eintragen 
+    
 6. create a new .ansible.cfg in your home
 6a) inventory should point to your inventory.yml file from lab02
 6b) Test again with ansible web -m ping from your home directory
