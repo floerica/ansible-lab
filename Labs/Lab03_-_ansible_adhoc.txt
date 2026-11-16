@@ -10,22 +10,30 @@ Ansible Ad-Hoc
 
 2. ad-hoc Check
 2a) for all groups you have in the inventory, run ansible -m ping <groupname> to verify you can reach all hosts
+ansible -m ping all
 2b) do you see anything strange in the output?
+unterschiedlcihe pythonversionen und verzeichnisse
+
 2c) try to get the uptime from all your hosts
+--> ansible all -m ansible.builtin.command -a "uptime"
 
 3. setup module
 3a) run the setup module ad-hoc with only one node
+ansible lx02 -m setup 
 Challenge:
 3b) filter for memory and distribution to get less information
+ansible lx02 -m setup | grep -i 'memory'^C
 
 Challenge:
 4. reboot a machine
 4a) use "ansible-doc -l" to find if there is a reboot module
 4b) use it to reboot any machine except your controlnode and note the difference to scVenus when rebooting a client
+--> ansible -b  -m reboot lx02
+
 
 5. Finalize the lab (ensure you are in your personal created branch and NOT in main -> git status)
 cd ~/ansible-lab
-git add Lab03
-git commit -m 'some description'
+git add lab03/
+git commit -m 'lab03 done'
 git push
 
