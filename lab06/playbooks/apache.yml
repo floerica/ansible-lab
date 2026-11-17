@@ -1,0 +1,66 @@
+---
+- name: Install and configure web server
+  hosts: web
+  become: true
+  gather_facts: true
+
+  vars:
+    web_package_name: httpd
+    web_service_name: httpd
+    web_user: apache
+    web_group: apache
+
+    document_root_directory: "{{ document_root }}/html"
+
+    index_source_file: index.html
+    index_destination_file: "{{ document_root_directory }}/index.html"
+
+    configuration_source_file: httpd.conf.j2
+    configuration_destination_file: /etc/httpd/conf/httpd.conf
+
+    directory_permissions: "0755"
+    file_permissions: "0644"
+
+  tasks:
+    - name: Install web server package
+      ansible.builtin.package:
+        name: "{{ web_package_name }}"
+        state: present
+
+    - name: Enable and start web server service
+      ansible.builtin.service:
+        name: "{{ web_service_name }}"
+        enabled: true
+        state: started
+
+    - name: Create document root directory
+      ansible.builtin.file:
+        path: "{{ document_root_directory }}"
+        state: directory
+        owner: "{{ web_user }}"
+        group: "{{ web_group }}"
+        mode: "{{ directory_permissions }}"
+
+    - name: Copy index page
+      ansible.builtin.copy:
+        src: "{{ index_source_file }}"
+        dest: "{{ index_destination_file }}"
+        owner: "{{ web_user }}"
+        group: "{{ web_group }}"
+        mode: "{{ file_permissions }}"
+
+    - name: Deploy web server configuration
+      ansible.builtin.template:
+        src: "{{ configuration_source_file }}"
+        dest: "{{ configuration_destination_file }}"
+        owner: root
+        group: root
+        mode: "{{ file_permissions }}"
+      notify: Restart web server
+
+  handlers:
+    - name: Restart web server
+      ansible.builtin.service:
+        name: "{{ web_service_name }}"
+        state: restarted
+...
