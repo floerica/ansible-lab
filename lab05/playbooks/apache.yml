@@ -1,0 +1,44 @@
+---
+- name: Webserver aufsetzen
+  hosts: web
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Install apache web server
+      ansible.builtin.package:
+        name: httpd
+        state: present
+
+    - name: Start webserver
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: true
+
+    - name: Create apache directory
+      ansible.builtin.file:
+        path: "{{ document_root }}/html"
+        state: directory
+        owner: apache
+        group: apache
+        mode: '0755'
+
+    - name: Copy index file
+      ansible.builtin.copy:
+        src: '~/ansible-basis-training-lab/files/index.html'
+        dest: "{{ document_root }}/html/"
+
+    
+    - name: Deploy httpd config with new DocumentRoot
+      ansible.builtin.template:
+        src: ~/ansible-basis-training-lab/templates/httpd.conf.j2
+        dest: "/etc/httpd/conf/httpd.conf"
+        mode: '0644'
+      notify: Restart apache
+
+  handlers:
+    - name: Restart apache
+      ansible.builtin.service:
+        name: "httpd"
+        state: restarted
