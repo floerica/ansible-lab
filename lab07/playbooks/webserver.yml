@@ -1,0 +1,55 @@
+- name: Configure Webserver
+  hosts: web
+  become: true
+
+  vars:
+    package_name: httpd
+    service_name: httpd
+    conf_file: /etc/httpd/conf/httpd.conf
+    html_file: index.html
+    document_root: /www
+    webserver_port: 80
+    webserver_user: apache
+    webserver_group: apache
+    template_file: httpd.conf.j2
+
+  tasks:
+
+    - name: Install Webserver
+      ansible.builtin.dnf:
+        name: "{{ package_name }}"
+        state: present
+
+    - name: Create DocumentRoot
+      ansible.builtin.file:
+        path: "{{ document_root }}"
+        state: directory
+        owner: "{{ webserver_user }}"
+        group: "{{ webserver_group }}"
+        mode: '0755'
+
+    - name: Copy HTML file
+      ansible.builtin.copy:
+        src: "{{ html_file }}"
+        dest: "{{ document_root }}/{{ html_file }}"
+        owner: "{{ webserver_user }}"
+        group: "{{ webserver_group }}"
+        mode: '0644'
+
+    - name: Configure Webserver
+      ansible.builtin.template:
+        src: "{{ template_file }}"
+        dest: "{{ conf_file }}"
+      notify: Restart Webserver
+
+    - name: Start Webserver
+      ansible.builtin.service:
+        name: "{{ service_name }}"
+        state: started
+        enabled: true
+
+  handlers:
+    - name: Restart Webserver
+      ansible.builtin.service:
+        name: "{{ service_name }}"
+        state: restarted
