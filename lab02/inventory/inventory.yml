@@ -15,3 +15,6 @@ managednodes:
 web:
   hosts:
     lx02:
+all:
+  hosts:
+    testhost:
