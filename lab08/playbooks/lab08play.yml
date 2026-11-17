@@ -1,0 +1,31 @@
+---
+- name: Change file content
+  hosts: all
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: write to file
+      ansible.builtin.lineinfile:
+        path: /etc/testfile
+        line: "{{ item }}"
+        create: true
+        backup: true
+      loop: "{{ groups['managednodes'] }}"
+
+    - name: copy file
+      ansible.builtin.copy:
+        src: /etc/testfile
+        dest: /etc/testfile.bak
+
+    - name: delete lines from file
+      ansible.builtin.lineinfile:
+        path: /etc/testfile
+        line: "{{ item }}"
+        state: absent
+      loop:
+        - lx02
+        - lx03
+
+
+

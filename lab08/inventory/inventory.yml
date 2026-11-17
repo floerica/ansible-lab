@@ -1,0 +1,29 @@
+---
+controlnode:
+  hosts:
+    lx01:
+      ansible_host: controlnode-user9.ansible-introduction.training.scinnolab.net
+
+managednodes:
+  hosts:
+    lx02:
+      ansible_host: lx02-user9.ansible-introduction.training.scinnolab.net
+    lx03:
+      ansible_host: lx03-user9.ansible-introduction.training.scinnolab.net
+    lx04:
+      ansible_host: lx04-user9.ansible-introduction.training.scinnolab.net
+    lx05:
+      ansible_host: lx05-user9.ansible-introduction.training.scinnolab.net
+
+debian:
+  hosts:
+    lx04: {}
+
+redhat:
+  hosts:
+    lx02: {}
+
+web:
+  children:
+    debian: {}
+    redhat: {}

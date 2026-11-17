@@ -1,0 +1,43 @@
+---
+- name: Webserver mit neuem DocumentRoot aufsetzen
+  hosts: web
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Install apache webserver
+      ansible.builtin.package:
+        name: "{{ apache_package }}"
+        state: present
+
+    - name: Enable and start apache service
+      ansible.builtin.service:
+        name: "{{ apache_service }}"
+        state: started
+        enabled: true
+
+    - name: Create document root
+      ansible.builtin.file:
+        path: "{{ document_root_html }}"
+        state: directory
+        owner: "{{ apache_user }}"
+        group: "{{ apache_group }}"
+        mode: '0755'
+
+    - name: Copy index.html
+      ansible.builtin.copy:
+        src: "{{ index_src }}"
+        dest: "{{ document_root_html }}/index.html"
+
+    - name: Deploy httpd config with new DocumentRoot
+      ansible.builtin.template:
+        src: "{{ template_src }}"
+        dest: "{{ apache_config_file }}"
+        mode: '0644'
+      notify: Restart apache
+
+  handlers:
+    - name: Restart apache
+      ansible.builtin.service:
+        name: "{{ apache_service }}"
+        state: restarted
