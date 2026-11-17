@@ -1,0 +1,5 @@
+apache_package: httpd
+apache_service: httpd
+apache_user: apache
+apache_group: apache
+apache_config_file: /etc/httpd/conf/httpd.conf
