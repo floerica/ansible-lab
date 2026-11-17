@@ -1,0 +1,56 @@
+---
+# control block
+  - name: Install an apache, create the infastructure for a putting a index.html and the httpd.conf there 
+    hosts: web
+    become: yes
+    gather_facts: true
+# action block
+    tasks:
+    - name: Installation of an apache
+      ansible.builtin.package: 
+        name: httpd
+        state: present 
+    - name: Enable and start the service 
+      ansible.builtin.service:
+        name: httpd
+        enabled: yes
+        state: started
+    - name: Create /www/html mit 755, welches Apache User und Gruppe gehoert
+      ansible.builtin.file:
+        path: /www/html
+        state: directory
+        mode: '0755' 
+        owner: apache
+        group: apache
+    - name: Kopiere index.html in den eben erstellten Ordner aus den zur Verfuegung gestellten Files
+      ansible.builtin.copy:
+        src: ~/ansible-basis-training-lab/files/index.html
+        dest: /www/html/
+        owner: apache
+        group: apache
+        mode: '0755'
+    - name: Anpassung der Defaultconfiguration fuer neue Doku in /www
+      ansible.builtin.template:
+        src: ~/ansible-basis-training-lab/templates/httpd.conf.j2
+        dest: /etc/httpd/conf/httpd.conf
+      notify:
+        - restart-httpd
+
+    handlers:
+      - name: restart-httpd
+        ansible.builtin.service:
+          name: httpd
+          state: restarted
+
+
+#    - name: print ansible_facts
+#      ansible.builtin.debug:
+#        var: ansible_facts
+#    - name: print group membership of hosts
+#      ansible.builtin.debug:
+#        var: group_names
+#    - name: print host_vars per node
+#      ansible.builtin.debug:
+#        var: hostvars[inventory_hostname]
+...
+
