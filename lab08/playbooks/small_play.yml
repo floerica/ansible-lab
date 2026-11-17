@@ -1,0 +1,15 @@
+---
+- name: small playbook to test loops
+  hosts: all
+  become: true
+  gather_facts: true
+  tasks:
+    - name: using ansible.builtin.lineinfile and loops 
+      ansible.builtin.lineinfile:
+       create: true
+       backup: true
+       path: "/etc/testfile"
+       line: "{{ item }}" 
+      loop: "{{ groups['managednodes'] }}"
+...
+    
