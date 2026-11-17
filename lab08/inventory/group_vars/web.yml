@@ -1,0 +1,4 @@
+---
+document_root: /www
+document_root_html: "{{ document_root }}/html"
+...
