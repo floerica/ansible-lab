@@ -40,8 +40,8 @@
         mode: "0644"
     - notify:
         - restart-httpd
-    Handlers:
-      - name: restart-httpd
-        ansible.builtin.service:
-          name: httpd
-          state: restarted 
+  handlers:
+    - name: restart-httpd
+      ansible.builtin.service:
+        name: httpd
+        state: restarted 
