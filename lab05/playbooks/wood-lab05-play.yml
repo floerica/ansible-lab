@@ -1,0 +1,41 @@
+#control block
+  - name: Small helper to gather ansible variables for usage
+    hosts: web
+    become: yes
+    gather_facts: true
+# action block
+    vars:
+      document_root: /www
+    tasks:
+    - name: Install Apache Webserver
+      ansible.builtin.package:
+        name: httpd
+        state: present
+    - name: Start apache service
+      ansible.builtin.service:
+        name: httpd
+        state: started
+    - name: Create Folder and Permissons
+      ansible.builtin.file:
+        path: /www/html
+        state: directory
+        mode: "0755"
+    - name: Change User
+      ansible.builtin.file:
+        path: /www/html
+        owner: apache
+        group: apache
+    - name: Copy file
+      ansible.builtin.copy:
+        src: /ansible-basis-training-lab/files/index.html
+        dest: /www/html/
+        mode: '0755'
+    - name: Change Template
+      ansible.builtin.template:
+        backup: true
+        src: /ansible-basis-training-lab/templates/httpd.conf.j2
+        dest: /etc/httpd/conf/
+        owner: apache
+        group: apache
+        mode: "0644"
+    - name: Handler httpd
