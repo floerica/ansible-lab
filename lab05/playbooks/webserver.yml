@@ -1,0 +1,55 @@
+- name: Configure Apache Webserver
+  hosts: web
+  become: true
+  gather_facts: true
+
+  vars:
+    apache_package: httpd
+    apache_service: httpd
+    apache_user: apache
+    apache_group: apache
+
+  tasks:
+
+    - name: Install Apache
+      ansible.builtin.package:
+        name: "{{ apache_package }}"
+        state: present
+
+    - name: Enable and start Apache
+      ansible.builtin.service:
+        name: "{{ apache_service }}"
+        state: started
+        enabled: true
+
+    - name: Create document root
+      ansible.builtin.file:
+        path: "{{ document_root }}/html"
+        state: directory
+        owner: "{{ apache_user }}"
+        group: "{{ apache_group }}"
+        mode: '0755'
+
+    - name: Copy index.html
+      ansible.builtin.copy:
+        src: files/index.html
+        dest: "{{ document_root }}/html/index.html"
+        owner: "{{ apache_user }}"
+        group: "{{ apache_group }}"
+        mode: '0644'
+
+    - name: Configure Apache DocumentRoot
+      ansible.builtin.template:
+        src: templates/httpd.conf.j2
+        dest: /etc/httpd/conf/httpd.conf
+        owner: root
+        group: root
+        mode: '0644'
+      notify: Restart Apache
+
+  handlers:
+
+    - name: Restart Apache
+      ansible.builtin.service:
+        name: "{{ apache_service }}"
+        state: restarted
