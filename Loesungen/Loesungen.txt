@@ -1,0 +1,6 @@
+URL:
+https://github.com/floerica/ansible-lab/tree/florian_solutions
+
+git clone https://github.com/floerica/ansible-lab.git
+
+
