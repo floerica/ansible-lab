@@ -1,0 +1,48 @@
+---
+- name: Install and configure Apache web server
+  hosts: web
+  become: true
+
+  tasks:
+    - name: Install Apache
+      ansible.builtin.package:
+        name: httpd
+        state: present
+
+    - name: Enable and start Apache
+      ansible.builtin.service:
+        name: httpd
+        enabled: true
+        state: started
+
+    - name: Create document root
+      ansible.builtin.file:
+        path: "{{ document_root }}/html"
+        state: directory
+        owner: apache
+        group: apache
+        mode: "0755"
+
+    - name: Copy index.html
+      ansible.builtin.copy:
+        src: index.html
+        dest: "{{ document_root }}/html/index.html"
+        owner: apache
+        group: apache
+        mode: "0644"
+
+    - name: Deploy Apache configuration
+      ansible.builtin.template:
+        src: httpd.conf.j2
+        dest: /etc/httpd/conf/httpd.conf
+        owner: root
+        group: root
+        mode: "0644"
+      notify: Restart Apache
+
+  handlers:
+    - name: Restart Apache
+      ansible.builtin.service:
+        name: httpd
+        state: restarted
+...
