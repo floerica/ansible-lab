@@ -38,4 +38,10 @@
         owner: apache
         group: apache
         mode: "0644"
-    - name: Handler httpd
+    - notify:
+        - restart-httpd
+    Handlers:
+      - name: restart-httpd
+        ansible.builtin.service:
+          name: httpd
+          state: restarted 
