@@ -1,0 +1,16 @@
+---
+# control block
+  - name: Installiere SQLite wenn mehr als 2GB physical memory vorhanden ist.
+    hosts: all 
+    become: true
+    gather_facts: true
+# action block
+    vars:
+      sqlite_pkg: "sqlite"  
+    tasks:
+      - name: Installiere geprueft durch ein failed when (conditional) ein SQLite, sofern mehr als 2GB physischer speicher zur Verfuegung stehen.
+        ansible.builtin.package:
+          name: "{{sqlite_pkg}}" 
+          state: latest 
+        when:
+          - ansible_facts['memtotal_mb'] > 2048
