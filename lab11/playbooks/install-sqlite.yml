@@ -1,0 +1,23 @@
+---
+# control block
+  - name: install and start sqlite 
+    hosts: database
+    become: yes
+    gather_facts: true
+  #  vars:
+  #    document_root: /www
+# action block
+    tasks:
+    - name: "install sqlite"
+      ansible.builtin.package:
+        name: "sqlite"
+        state: present
+        update_cache: true
+    - name: "start sqlite"
+      ansible.builtin.service:
+        name: "sqlite"
+        state: "started"
+        enabled: true
+      when:
+        - ansible_facts["memtotal_mb"] > 20248
+...

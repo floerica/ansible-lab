@@ -1,0 +1,983 @@
+    1  code newfile
+    2  git config user.matthias.kalbhenn@bull.com
+    3  git config user.name.'Matthias Kalbhenn'
+    4  git config user.name.Matthias Kalbhenn
+    5  git config user.name 'Matthias Kalbhenn'
+    6  git config user 'matthias.kalbhenn@bull.com'
+    7  git config user.email 'matthias.kalbhenn@bull.com'
+    8  ll
+    9  ls -al
+   10  cat .git/
+   11  cat .git/config 
+   12  cd
+   13  ll
+   14  cd ansible-lab/
+   15  ls
+   16  cd lab01/
+   17  ll
+   18  tree
+   19  ll
+   20  ll playbooks/
+   21  cd 
+   22  cd ansible-lab/
+   23  scripts/create venv
+   24  pwd
+   25  l
+   26  ll
+   27  scripts/create_venv 
+   28  ansible --version
+   29  scripts/create_venv 
+   30  ansible --version
+   31  cd scripts/
+   32  ls
+   33  ./create_venv 
+   34  ansible --version
+   35  cd ..
+   36  ls
+   37  scripts/create_venv 
+   38  scripts/create_venv requirements.txt
+   39  cd lab01/
+   40  ls
+   41  tree
+   42  ls
+   43  ll
+   44  cd
+   45  ls
+   46  cd ansible-lab/
+   47  ls
+   48  scripts/create_venv
+   49  git add Lab02
+   50  ls
+   51  cd 
+   52  cd ls
+   53  ls
+   54  cd ansible-
+   55  cd ansible-lab/
+   56  ls
+   57  cd lab01/
+   58  ls
+   59  ansible-config init --disalbed -t all ansible.cfg
+   60  ansible --version
+   61  ansible-config view
+   62  code ansilb.cfg
+   63  code ansible.cfg
+   64  ls
+   65  lsl -al
+   66  ls -al
+   67  ansible-config view
+   68  ls
+   69  ansible-config init --disabled -t all ansible.cfg
+   70  ls
+   71  ls -la
+   72  ansible-config init --disabled -t all > ansible.cfg
+   73  ls
+   74  code ansible.cfg 
+   75  ansible-config dump --changed-only
+   76  ansible-doc -l | wc -l
+   77  ansible-config list
+   78  ansible-doc -l
+   79  ansible-doc ansible.buitin
+   80  ansible-doc ansible.buildin
+   81  ansible-doc ansible.builtin
+   82  ansible-doc -l ansible.builtin
+   83  cd ..
+   84  git add lab01
+   85  git commit -m 'ansible configuration'
+   86  ll
+   87  git push --set-upstream origin matthias_dev
+   88  cd ..
+   89  git push --set-upstream origin matthias_dev
+   90  git add lab01
+   91  git commit -m 'ansible configuration'
+   92  pwd
+   93  ls
+   94  cd ansible-lab/
+   95  ls
+   96  cd labs
+   97  ls
+   98  cd lab2
+   99  ls
+  100  cd labs
+  101  cd Labs/
+  102  ls
+  103  cd ~/ansible-lab/
+  104  scripts/preparelab.sh lab01 lab02
+  105  ls
+  106  cd Labs/lab2
+  107  ls
+  108  cd Labs/
+  109  ls
+  110  cd ..
+  111  l
+  112  ls
+  113  cd lab02/
+  114  ls
+  115  cat inventory/inventory.yml 
+  116  less inventory/inventory.yml 
+  117  ansible-inventory --list
+  118  ansible-inventory --host lx01
+  119  ansible-inventory --graph
+  120  ansible controlnode -m ping
+  121  vi inventory/inventory.yml 
+  122  ansible-inventory --list
+  123  ansible-inventory --graph
+  124  ansible controlnode -m ping
+  125  pwd
+  126  cd
+  127  ansible controlnode -m ping
+  128  pwd
+  129  ll
+  130  cd ansible-lab/lab02/
+  131  ansible controlnode -m ping
+  132  cd
+  133  ansible -i ~ansible-lab/lab02/inventory controlnode -m ping
+  134  ansible -i ~/ansible-lab/lab02/inventory controlnode -m ping
+  135  ansible -i ~/ansible-lab/lab02/inventory controlnode -m ping -vvv
+  136  pwd
+  137  ls
+  138  cd ansible-lab/
+  139  ls
+  140  less Labs/Lab02_-_ansible_inventory.txt 
+  141  ls
+  142  cd lab02/
+  143  ls
+  144  cd inventory/
+  145  ll
+  146  vi inventroy-ini
+  147  ls
+  148  less Labs/Lab02_-_ansible_inventory.txt 
+  149  less ../ Labs/Lab02_-_ansible_inventory.txt 
+  150  ls
+  151  cat inventory.yml 
+  152  ls
+  153  pwd
+  154  cd ..
+  155  ls
+  156  cd ..
+  157  ls
+  158  less Labs/Lab02_-_ansible_inventory.txt 
+  159  cat Labs/Lab02_-_ansible_inventory.txt 
+  160  ls
+  161  cd lab02/
+  162  ls
+  163  vi ansible.cfg 
+  164  cd inventory/
+  165  pwd
+  166  cd ..
+  167  ls
+  168  vi ansible.cfg 
+  169  ls
+  170  cd inventory/
+  171  ls
+  172  cat inventory.yml 
+  173  ansible-inventory --list
+  174  pwd
+  175  ls
+  176  mv inventroy-ini inventory-ini
+  177  ll
+  178  ansible-inventory --list
+  179  cd ..
+  180  ls
+  181  vi ansible.cfg 
+  182  ansible-inventory --list
+  183  ls
+  184  cd inventory/
+  185  ls
+  186  cat inventory.yml 
+  187  ls
+  188  history
+  189  ansible web -m ping
+  190  ls
+  191  cd ..
+  192  ls
+  193  ansible web -m ping
+  194  vi ansible.cfg 
+  195  ansible web -m ping
+  196  ls
+  197  mv ansible.cfg ansible-lab2.cfg
+  198  ll
+  199  pw
+  200  dpwd
+  201  pwd
+  202  ls
+  203  cat ../Labs/Lab02_-_ansible_inventory.txt 
+  204  ls
+  205  cd inventory/
+  206  ls
+  207  vi inventory-ini 
+  208  ls
+  209  cd ..
+  210  ls
+  211  cd ..
+  212  ls
+  213  cd lab02/
+  214  git add Lab02
+  215  git add lab02
+  216  cd ..
+  217  ls
+  218  git add Lab02
+  219  git add lab02
+  220  git commit -m 'inventory'
+  221  git push
+  222  ls
+  223  ls -al
+  224  cd lab02/
+  225  ls
+  226  cp ansible-lab2.cfg .ansible.cfg
+  227  ls
+  228  vi ls
+  229  ls -al
+  230  vi .ansible.cfg 
+  231  ll
+  232  cd ..
+  233  ls -al
+  234  cd ..
+  235  ls -la
+  236  cd ansible-lab/
+  237  pwd
+  238  ls
+  239  cat Labs/Lab03_-_ansible_adhoc.txt 
+  240  ls
+  241  scripts/preparelab.sh lab02 lab03
+  242  cd ~/ansible-lab
+  243  scripts/preparelab.sh lab02 lab03
+  244  ls
+  245  cd lab03/
+  246  ls
+  247  ls -al
+  248  ansible --version
+  249  ansible-inventory --list
+  250  ls
+  251  cp ansible-lab2.cfg .ansible.cfg 
+  252  ansible-inventory --list
+  253  ll
+  254  ls -al
+  255  cat .ansible.cfg 
+  256  /invet
+  257  cat .ansible.cfg 
+  258  vi .ansible.cfg 
+  259  ls
+  260  ansible-inventory --list
+  261  cd ..
+  262  ansible-inventory --list
+  263  ls
+  264  ls -al
+  265  ansible -m ping all
+  266  cd lab03/
+  267  ls
+  268  vi .ansible.cfg 
+  269  ansible -m ping all
+  270  ansible-inventory --list
+  271  ls
+  272  cd inventory/
+  273  ls
+  274  cat inventory.yml 
+  275  cd ..
+  276  ls
+  277  pwd
+  278  cd inventory/
+  279  ls
+  280  ansible-inventory --list
+  281  cd ..
+  282  ls
+  283  vi .ansible.cfg 
+  284  ansible-inventory --list
+  285  vi .ansible.cfg 
+  286  ls
+  287  cp ansible-lab2.cfg .ansible.cfg 
+  288  ansible-inventory --list
+  289  ansible-config --list
+  290  ansible-config list
+  291  ansible-config dump
+  292  ls
+  293  cd ..
+  294  ls
+  295  cd lab02/
+  296  ansible-config list
+  297  ansible-inventory --list
+  298  ansible-config ?
+  299  ansible-config view
+  300  cd ..
+  301  ls
+  302  cd lab02/
+  303  ansible-config init
+  304  ls
+  305  ls -alt
+  306  vi ansible-lab2.cfg 
+  307  ansible-inventory --list
+  308  pwd
+  309  cd ../lab02/
+  310  ls
+  311  cd ..
+  312  l
+  313  ls
+  314  cd lab03/
+  315  l
+  316  ls
+  317  vi .ansible.cfg 
+  318  ansible-config --list
+  319  ls
+  320  vi .ansible.cfg 
+  321  ansible-config --list
+  322  ansible-inventory --list
+  323  ls
+  324  cd inventory/
+  325  ls
+  326  pwd
+  327  ls
+  328  cd ..
+  329  ansible-config dump (--changed-only)
+  330  ansible-config dump --changed-only
+  331  cd ..
+  332  ls
+  333  ls -la
+  334  cd ..
+  335  ls -al
+  336  cd ansible-lab/
+  337  ls
+  338  cd lab01/
+  339  ls
+  340  ls -la
+  341  cd ../lab03/
+  342  ls
+  343  cp ansible-lab2.cfg ansible.cfg
+  344  ls
+  345  ansible-config dump --changed-only
+  346  ansible-inventory --list
+  347  ansible -m ping
+  348  ansible -m ping all
+  349  ansible -a uptime all
+  350  ansible lx02 -m setup
+  351  ansible lx02 -m setup | grep memory
+  352  ansible lx02 -m setup | grep -a 2 memory
+  353  ansible lx02 -m setup | grep -b 2 memory
+  354  ansible lx02 -m setup -a 'filter=*mem*'
+  355  ansible lx02 -m setup -a 'filter=*mem*,dist*'
+  356  ansible lx01 -m setup -a 'filter=*mem*,dist*'
+  357  ansible-doc -l -a 'fileter=reboot'
+  358  ansible-doc -l -a 'filter=reboot'
+  359  ansible-doc -l | grep reboot
+  360  ansible lx02 -m ansible.builtin.reboot'
+  361  ;
+  362  ansible-doc -l
+  363  ansible lx02 -a ansible.builtin.reboot 
+  364  ansible lx02 -b -m ansible.builtin.reboot 
+  365  cd ~/ansible-lab
+  366  git add Lab03
+  367  git add lab03
+  368  git commit -m 'ad-hoc commands'
+  369  git push
+  370  ls
+  371  cd lab02/
+  372  ls
+  373  cp ansible-lab2.cfg ansible.cfg
+  374  ls
+  375  cd ..
+  376  ls
+  377  cd lab03/
+  378  ls
+  379  ansible-inventory --list
+  380  ansible managednodes -b -m ansible.builtin.reboot 
+  381  history
+  382  ll
+  383  cd ..
+  384  ls
+  385  cd lab03
+  386  ll
+  387  ansible -m ping -i inventory/inventory-ini 
+  388  ansible -i inventory/inventory-ini -m ping
+  389  ll
+  390  pwd
+  391  cd ..
+  392  l
+  393  sls
+  394  ll
+  395  cd Labs/
+  396  ll
+  397  cat Lab04_-_ansible_playbook_1.txt 
+  398  ls
+  399  cd ..
+  400  ll
+  401  cd ~/ansible-lab ; scripts/preparelab.sh lab03 lab04
+  402  ll
+  403  cd lab04/
+  404  ls
+  405  cd playbooks/
+  406  ls
+  407  vi gather_ansible_facts.yml
+  408  cd ..
+  409  ls
+  410  ansible-playbook playbooks/gather_ansible_facts.yml --step
+  411  ssh lx05
+  412  ping lx05
+  413  ll
+  414  ls lab02/
+  415  cd ..
+  416  ll
+  417  cd pwd
+  418  pwd
+  419  cd lab04/
+  420  ll
+  421  history > history.txt
+  422  ll
+  423  less history.txt 
+  424  cd ..
+  425  git add lab04
+  426  git commit -m 'playbook gather ansible facts'
+  427  git push
+  428  pwd
+  429  cat /home/user/ansible-lab/Labs/Lab05_-_ansible_playbook_2.txt 
+  430  ls
+  431  ansible-doc -l
+  432  cat /home/user/ansible-lab/Labs/Lab04_-_ansible_playbook_1.txt 
+  433  ls
+  434  cd lab04/
+  435  ls
+  436  cd .
+  437  cd ..
+  438  ls
+  439  vi lab04/playbooks/gather_ansible_facts.yml 
+  440  ansible-playbook playbooks/gather_ansible_facts.yml --step
+  441  pwd
+  442  ls
+  443  cd lab04/
+  444  ansible-playbook playbooks/gather_ansible_facts.yml --step
+  445  code playbooks/gather_ansible_facts.yml 
+  446  ansible-playbook playbooks/gather_ansible_facts.yml -l lx02 --step
+  447  ll
+  448  cd inventory/
+  449  ls
+  450  cat inventory-ini 
+  451  mv inventory-ini inventory.ini
+  452  ll
+  453  cd ..
+  454  ansible-playbook playbooks/gather_ansible_facts.yml -l lx02 --step
+  455  cd ..
+  456  git commit -m 'playbook gather ansible facts changes'
+  457  git add lab04
+  458  git commit -m 'playbook gather ansible facts changes'
+  459  git push
+  460  cd ~/ansible-lab ; scripts/preparelab.sh lab04 lab05
+  461  ls
+  462  cd lab05/
+  463  ls
+  464  code playbooks/apache.yml
+  465  ls
+  466  code playbooks/inst_apache.yml
+  467  ls
+  468  cd playbooks/
+  469  ls
+  470  pwd
+  471  cp gather_ansible_facts.yml install_apache.yml
+  472  cd ..
+  473  l
+  474  ls
+  475  code playbooks/install_apache.yml 
+  476  ansible-doc -l
+  477  s
+  478  ls
+  479  anasn
+  480  asnans
+  481  asnasss    
+  482  ans
+  483  cd
+  484  ls
+  485  cd anan
+  486  pwd
+  487  ls
+  488  cd lab05/
+  489  ls
+  490  ansible-playbook playbooks/install_apache.yml -l lx02 --check-syntax
+  491  ansible-playbook playbooks/install_apache.yml -l lx02 --syntax-check
+  492  ansible-playbook playbooks/install_apache.yml -l lx02 --check
+  493  ansible-playbook playbooks/install_apache.yml -l lx02 --syntax-check
+  494  ansible-playbook playbooks/install_apache.yml -l lx02 --check
+  495  ansible-playbook playbooks/install_apache.yml -l lx02 --syntax-check
+  496  ansible-playbook playbooks/install_apache.yml -l lx02 --check
+  497  ls
+  498  pwd
+  499  ls
+  500  cd inventory/group_vars/
+  501  ls
+  502  vi web.yml
+  503  ll
+  504  cd ..
+  505  ls
+  506  ansible-inventory --list
+  507  ls
+  508  cd ..
+  509  ansible-inventory --list
+  510  ansible-playbook playbooks/install_apache.yml -l lx02 --check
+  511  ls
+  512  cd playbooks/
+  513  ls
+  514  vi apache.yml
+  515  cd ..
+  516  ansible-playbook playbooks/apache.yml -l lx02 --check
+  517  cd ..
+  518  ls
+  519  cat Labs/Lab06_-_ansible_variables.txt 
+  520  pwd
+  521  cd ~/ansible-lab ; scripts/preparelab.sh lab05 lab06
+  522  ll
+  523  cd lab06/
+  524  cd lab05
+  525  ls
+  526  ansible-playbook playbooks/apache.yml -l lx02
+  527  ls
+  528  cd inventory/group_vars/
+  529  ls
+  530  vi web.yml 
+  531  ansible-inventory --list
+  532  cd ..
+  533  ls
+  534  cd ..
+  535  ansible-inventory --list
+  536  ansible-inventory --view
+  537  ansible-playbook playbooks/apache.yml -l lx02
+  538  cd ..
+  539  ls
+  540  cd lab05/
+  541  ls
+  542  cd inventory/group_vars/
+  543  ls
+  544  vi web.yml 
+  545  cd ..
+  546  ls
+  547  cd ..
+  548  ls
+  549  ansible-playbook playbooks/apache.yml -l lx02
+  550  ls
+  551  cd ..
+  552  ls
+  553  cd lab06/
+  554  ls
+  555  cd inventory/
+  556  ls
+  557  cd group_vars/
+  558  ls
+  559  vi web.yml 
+  560  ansible-inventory --list
+  561  cd ..
+  562  ls
+  563  cd ..
+  564  ls
+  565  vi ansible.cfg 
+  566  ansible-inventory --list
+  567  vi ansible.cfg 
+  568  cd ..
+  569  l
+  570  ls
+  571  cd lab05/
+  572  vi ansible.cfg 
+  573  ansible-inventory --list | more
+  574  cd ..
+  575  ls
+  576  cd lab06/
+  577  ls
+  578  ansible-playbook playbooks/apache.yml -l lx04
+  579  ansible-inventory --list | more
+  580  ansible-playbook playbooks/apache.yml -l lx04
+  581  pwd
+  582  ll
+  583  ls
+  584  cd inventory/
+  585  ls
+  586  vi inventory.yml 
+  587  cd ..
+  588  ls
+  589  ansible-playbook playbooks/apache.yml -l lx04
+  590  ls
+  591  vi inventory/group_vars/web.yml 
+  592  ansible-playbook playbooks/apache.yml -l lx04
+  593  vi inventory/group_vars/web.yml 
+  594  ansible-playbook playbooks/apache.yml -l lx04
+  595  vi inventory/group_vars/web.yml 
+  596  ansible-playbook playbooks/apache.yml -l lx04
+  597  vi inventory/group_vars/web.yml 
+  598  ansible-playbook playbooks/apache.yml -l lx04
+  599  ansible-playbook playbooks/apache.yml -l lx02
+  600  cd ..
+  601  ls
+  602  cat Labs/Lab07_-_ansible_templates.txt 
+  603  cd ~/ansible-lab ; scripts/preparelab.sh lab06 lab07
+  604  ll
+  605  cd ~/ansible-lab ; scripts/preparelab.sh lab07 lab08
+  606  ll
+  607  cat Labs/Lab08_-_ansible_loops.txt 
+  608  cd lab08/
+  609  ls
+  610  vi playbooks/loops.yml
+  611  ansible-playbook playbooks/loops.yml 
+  612  ssh lx02
+  613  ls
+  614  vi playbooks/loops.yml 
+  615  ansible-playbook playbooks/loops.yml 
+  616  ssh lx01
+  617  vi playbooks/loops.yml 
+  618  ansible-playbook playbooks/loops.yml 
+  619  vi playbooks/loops.yml 
+  620  ansible-playbook playbooks/loops.yml 
+  621  vi playbooks/loops.yml 
+  622  ansible-playbook playbooks/loops.yml 
+  623  ls
+  624  cd inventory/
+  625  ls
+  626  ll inventory.yml 
+  627  cat inventory.
+  628  cat inventory.yml 
+  629  ls
+  630  cd ..
+  631  vi playbooks/loops.yml 
+  632  ansible-playbook playbooks/loops.yml 
+  633  vi playbooks/loops.yml 
+  634  ansible-playbook playbooks/loops.yml 
+  635  vi playbooks/loops.yml 
+  636  ansible-playbook playbooks/loops.yml 
+  637  vi playbooks/loops.yml 
+  638  cp playbooks/loops.yml playbooks/loops2.yml 
+  639  vi playbooks/loops2.yml 
+  640  ansible-playbook playbooks/loops2.yml 
+  641  code playbooks/loops2.yml 
+  642  ls /tmp
+  643  ansible-playbook playbooks/loops2.yml 
+  644  pwd
+  645  ls
+  646  cd ..
+  647  ls
+  648  cd lab02/
+  649  ls
+  650  ansible-inventory --list
+  651  ls
+  652  vi ansible.cfg 
+  653  ansible-inventory --list
+  654  vi ansible.cfg 
+  655  ansible-inventory --list
+  656  cd ../lab03/
+  657  ls
+  658  vi ansible.cfg 
+  659  ansible-inventory --list
+  660  vi ansible.cfg 
+  661  ansible-inventory --list
+  662  vi ansible.cfg 
+  663  ansible-inventory --list
+  664  cd ../lab04/
+  665  ls
+  666  ansible-inventory --list
+  667  vi ansible.cfg 
+  668  ansible-inventory --list
+  669  cd ../lab05/
+  670  ls
+  671  vi ansible.cfg 
+  672  ansible-inventory --list
+  673  cd ../lab06/
+  674  ls
+  675  vi ansible.cfg 
+  676  ansible-inventory --list
+  677  cd ../lab07/
+  678  ls
+  679  vi ansible.cfg 
+  680  ansible-inventory --list
+  681  cd ../lab08/
+  682  ls
+  683  vi ansible.cfg 
+  684  ansible-inventory --list
+  685  cd ..
+  686  ls
+  687  cat Labs/Lab09_-_ansible_conditionals.txt 
+  688  cd ~/ansible-lab ; scripts/preparelab.sh lab08 lab09
+  689  cd lab09/
+  690  vi inventory/inventory.yml 
+  691  ansible-inventory --list
+  692  ll
+  693  ls playbooks/
+  694  cp playbooks/install_apache.yml playbooks/install-sqlite.yml
+  695  vi playbooks/install-sqlite.yml 
+  696  code playbooks/install-sqlite.yml q
+  697  ansible-playbook playbooks/install-sqlite.yml --syntax-check
+  698  ansible-playbook playbooks/install-sqlite.yml --check
+  699  ansible-playbook playbooks/install-sqlite.yml
+  700  ansible-playbook playbooks/install-sqlite.yml --check
+  701  ansible-playbook playbooks/install-sqlite.yml
+  702  ls
+  703  cp playbooks/install-sqlite.yml playbooks/install-sqlite-2.yml 
+  704  code playbooks/install-sqlite-2.yml 
+  705  ansible-playbook playbooks/install-sqlite-2.yml --check
+  706  ansible-playbook playbooks/install-sqlite-2.yml --syntax-check
+  707  ansible-playbook playbooks/install-sqlite-2.yml --check
+  708  ansible-playbook playbooks/install-sqlite-2.yml
+  709  ansible -m setup
+  710  cd ~/ansible-lab
+  711  git add lab09
+  712  git commit -m 'conditions'
+  713  git push
+  714  cd lab09/
+  715  ls
+  716  cd playbooks/
+  717  ls
+  718  mv install-sqlite-2.yml print-msg.yml
+  719  ll
+  720  cd ..
+  721  ls
+  722  cd ..
+  723  git commit -m 'conditions rename print msg'
+  724  git push
+  725  git add lab09
+  726  git commit -m 'conditions rename print msg'
+  727  git push
+  728  ll
+  729  cat Labs/Lab10_-_ansible_execution_control.txt 
+  730  cd ~/ansible-lab ; scripts/preparelab.sh lab09 lab10
+  731  cd lab09/
+  732  ansible-playbook playbooks/print-msg.yml 
+  733  ansible-playbook playbooks/install-sqlite-2.yml
+  734  ansible-galaxy role search
+  735  ansible-galaxy role search sc
+  736  pwd
+  737  cd ../lab10/
+  738  ls
+  739  ll
+  740  vi playbooks/exec-control.yml
+  741  cod playbooks/exec-control.yml
+  742  code playbooks/exec-control.yml
+  743  ansible-playbook playbooks/exec-control.yml --syntax-check
+  744  ansible-playbook playbooks/exec-control.yml --check
+  745  ansible-playbook playbooks/exec-control.yml
+  746  pwd
+  747  ls
+  748  cd lab10/
+  749  ls
+  750  ll playbooks/
+  751  vi ansible.cfg 
+  752  ansible-playbook playbooks/print-msg.yml 
+  753  ansible-inventory --list
+  754  cd lab10
+  755  ls
+  756  ansible-inventory --list
+  757  vi ansible.cfg 
+  758  ansible-playbook playbooks/exec-control.yml 
+  759  cat inventory/inventory.yml 
+  760  vi inventory/inventory.yml 
+  761  cat inventory/inventory.yml 
+  762  ansible-inventory --list
+  763  ansible-playbook playbooks/exec-control.yml -l lx05
+  764  cd ..
+  765  ll
+  766  cat Labs/Lab11_-_ansible_vault.txt 
+  767  cd ~/ansible-lab ; scripts/preparelab.sh lab10 lab11
+  768  l
+  769  ll
+  770  git add lab10
+  771  git commit -m 'inventory lx05 changed'
+  772  git push
+  773  cd lab11/
+  774  ansible-vault encrypt_string
+  775  cat >p
+  776  ls -ltr
+  777  cat p
+  778  vi inventory/group_vars/all/secretdata.yml
+  779  ll
+  780  ll inventory/
+  781  ll inventory/group_vars/
+  782  mkdir inventory/group_vars/all
+  783  vi inventory/group_vars/all/secretdata.yml
+  784  cd ..
+  785  ls
+  786  cat Labs/Lab12_-_ansible_debug.txt 
+  787  cd lab12/
+  788  ll
+  789  tree inventory/
+  790  tree playbooks/
+  791  ansible-config --list
+  792  ansible-config dump --changed-only)
+  793  ansible-config dump --changed-only
+  794  ansible-inventory --list
+  795  vi ansible.cfg 
+  796  ll
+  797  ansible-inventory --list
+  798  vi ansible.cfg 
+  799  ansible-inventory --list
+  800  vi ansible.cfg 
+  801  ansible-inventory --list
+  802  pwd
+  803  vi ansible.cfg 
+  804  ansible-inventory --list
+  805  ls
+  806  cat inventory/inventory.yaml 
+  807  pwd
+  808  ls
+  809  vi ansible.cfg 
+  810  ansible-config dump --changed-only
+  811  ll
+  812  cat README.md 
+  813  ll ../lab10
+  814  ll
+  815  ansible-config init--disabled -t all > ansible.cfg
+  816  ll
+  817  cat ansible.cfg 
+  818  ansible-config init --disabled -t all > ansible.cfg
+  819  ll
+  820  ansible-config dump --changed-only
+  821  ansible-inventory --list
+  822  vi ansible.cfg 
+  823  ls
+  824  rm ansible.cfg 
+  825  ansible-config init --disabled -t all > ansible.cfg
+  826  ansible-inventory --list
+  827  ansible-config dump --changed-only
+  828  vi ansible.cfg 
+  829  ansible-config dump --changed-only
+  830  ansible-inventory --list
+  831  ls
+  832  cd inventory/
+  833  ls
+  834  ll
+  835  vi inventory.yaml 
+  836  ll
+  837  cat inventory.yaml 
+  838  cat ../../lab10/inventory/inventory.yml 
+  839  ls
+  840  vi inventory.yml
+  841  ll
+  842  cd ..
+  843  ansible-inventory --list
+  844  ls
+  845  ll playbooks/
+  846  ll playbooks/roles 
+  847  ansible-playbook playbooks/pb_createdocument_root.yml --syntax-check
+  848  ls
+  849  vi inventory/inventory.yml 
+  850  ansible-inventory --list
+  851  vi inventory/inventory.yml 
+  852  ansible-inventory --list
+  853  vi inventory/inventory.yml 
+  854  ansible-inventory --list
+  855  pwd
+  856  ll
+  857  ara task list
+  858  code inventory/inventory.yml 
+  859  ansible-inventory --list
+  860  ansible-playbook playbooks/pb_createdocument_root.yml --syntax-check
+  861  code  playbooks/pb_createdocument_root.yml 
+  862  ansible-playbook playbooks/pb_createdocument_root.yml --syntax-check
+  863  ll
+  864  cd ../lab10/
+  865  ls
+  866  cd inventory/
+  867  ls
+  868  cd group_vars/
+  869  ls
+  870  ansible-galaxy role init myrole
+  871  ll
+  872  cd ..
+  873  ls
+  874  ..
+  875  ll
+  876  cd ls
+  877  cd ..
+  878  l
+  879  cd .
+  880  ls
+  881  cd lab12
+  882  cd ..
+  883  ls
+  884  cd lab12
+  885  ls
+  886  mkdir -p inventory/{group_vars,host_vars}
+  887  cd inventory/
+  888  ls
+  889  cd ..
+  890  ls
+  891  vi inventory/group_vars/web.yml
+  892  ansible-playbook playbooks/pb_createdocument_root.yml --syntax-check
+  893  ansible-config --list
+  894  ansible-config --init
+  895  ansible-config init
+  896  !
+  897  ll
+  898  ansible-config list
+  899  ansible-playbook playbooks/pb_createdocument_root.yml --syntax-check
+  900  ansible-inventory --list
+  901  ansible-playbook playbooks/pb_createdocument_root.yml --syntax-check
+  902  ll
+  903  cd inventory/
+  904  ls
+  905  cd group_vars/
+  906  ls
+  907  cp ../../../lab10/inventory/group_vars/web.yml .
+  908  ll
+  909  cat web.yml 
+  910  cd
+  911  ls
+  912  cd ansible-lab/lab12/
+  913  ls
+  914  ansible-playbook playbooks/pb_createdocument_root.yml --syntax-check
+  915  ansible-playbook playbooks/pb_createdocument_root.yml --check
+  916  ansible-playbook playbooks/pb_createdocument_root.yml
+  917  ll
+  918  d inventory/
+  919  ls
+  920  cd inventory/
+  921  ls
+  922  rm inventory.yaml 
+  923  cd
+  924  cd ansible-lab/lab12
+  925  ls
+  926  ansible-playbook playbooks/pb_createdocument_root.yml
+  927  cd ~/ansible-lab
+  928  git add lab12
+  929  git commit -m 'Errors fixed'
+  930  git push
+  931  git add lab12
+  932  git commit -m 'Errors fixed'
+  933  git push
+  934  git status
+  935  python3 --version
+  936  pwd
+  937  ll
+  938  cd lab11
+  939  ll
+  940  mv p .p
+  941  ll
+  942  cd playbooks/
+  943  ls
+  944  vi printsecret.yml
+  945  cd ..
+  946  ll
+  947  ansible-playbook playbooks/printsecret.yml --aks-vault-pass
+  948  ansible-playbook playbooks/printsecret.yml --ask-vault-pass
+  949  code playbooks/printsecret.yml 
+  950  ansible-playbook playbooks/printsecret.yml --ask-vault-pass
+  951  ll
+  952  history grep vault
+  953  history | grep vault
+  954  tree
+  955  ansible-vault create secrets.yml
+  956  ll
+  957  cat secrets.yml 
+  958  ansible-vault edit secrets.yml
+  959  ansible-vault view secrets.yml
+  960  vi .vault_password
+  961  ls -al
+  962  chmod 600 .vault_password 
+  963  ll
+  964  ls -la
+  965  ansible-playbook playbooks/printsecret.yml --ask-vault-pass
+  966  cat secrets.yml 
+  967  ll
+  968  cd inventory/
+  969  ll
+  970  cd group_vars/
+  971  ll
+  972  cd all/
+  973  ls
+  974  cat secretdata.yml 
+  975  vi secretdata.yml 
+  976  cat secretdata.yml 
+  977  cd ..
+  978  ls
+  979  cd ..
+  980  ll
+  981  ansible-playbook playbooks/printsecret.yml --ask-vault-pass
+  982  ll
+  983  history > history-2.txt 
