@@ -1,0 +1,15 @@
+---
+# control block
+  - name: Loope ueber ne Gruppe an Hosts und sammle Infos bzw bearbeite diese in einem File
+    hosts: all 
+    become: true
+    gather_facts: true
+# action block
+    tasks:
+    - name: Schreiben der Hostnamen in ein File
+      ansible.builtin.lineinfile:
+        path: /etc/testfile
+        create: yes
+        line: hostname="{{item}}"
+        backup: true
+      loop: "{{ groups['managednodes'] }}"

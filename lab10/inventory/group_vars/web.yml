@@ -1,0 +1,6 @@
+---
+document_root: /www
+package_name: httpd
+service_name: httpd
+conf_file: ~/ansible-basis-training-lab/templates/httpd.conf.j2
+html_file: index.html
