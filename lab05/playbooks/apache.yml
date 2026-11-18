@@ -7,12 +7,12 @@
   tasks:
     - name: "install httpd"
       ansible.builtin.package:
-        name: "'package-name'"
+        name: "httpd"
         state: present
         update_cache: true
     - name: enable and start httpd
       ansible.builtin.service:
-        name: "{{ 'service-name' }}"
+        name: "httpd"
         state: "started"
         enabled: true
     - name: "create /www/html"
@@ -24,7 +24,7 @@
         state: directory
     - name: template apache config
       ansible.builtin.template:
-        src: "{{ 'conf-file name' }}"
+        src: "httpd.conf.j2"
         dest: "/etc/httpd/conf/httpd.conf"
         mode: "0644"
         owner: "apache"
@@ -34,7 +34,7 @@
         - restart-httpd
     - name: copy index.html
       ansible.builtin.template:
-        src: "{{ html-file }}"
+        src: "index.html.j2"
         dest: "/www/html/index.html"
         mode: "0644"
         owner: "apache"
