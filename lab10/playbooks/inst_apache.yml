@@ -1,0 +1,40 @@
+---
+# control block
+- name: playbook apache
+  hosts: web
+  become: true
+  gather_facts: true 
+  vars:
+   httpconf: "/etc/httpd/conf/httpd.conf"
+  # action block  
+  tasks:
+  - name: install httpd  
+    ansible.builtin.package:
+     name: {{ apache_pck }} 
+     state: "present"
+     update_cache: true
+  - name: start service
+    ansible.builtin.service:
+     name: "httpd"
+     state: "started"
+     enabled: true
+  - name: create /www/html
+    ansible.builtin.file:
+     path: "{{ document_root }}/html"
+     mode: '0755'
+     owner: "apache"
+     group: "apache"
+     state: directory
+  - name: template index.html
+    ansible.builtin.template:
+     src: "index.html.j2"
+     dest: "{{ document_root }}/html"
+     mode: '0644'
+     owner: "apache"
+     group: "apache"
+  - name: template httpd.conf.j2
+    ansible.builtin.template:
+     src: "httpd.conf.j2" 
+     dest: "{{ httpconf }}" 
+     mode: '0644'   
+...
