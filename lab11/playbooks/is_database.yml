@@ -1,0 +1,11 @@
+---
+# control block
+- name: is database
+  hosts: all
+  #become: true
+  gather_facts: true
+  tasks:
+   - name: print is in database
+     ansible.builtin.debug:
+      msg: "I'm in the database group"
+     when: "'database' in group_names"   

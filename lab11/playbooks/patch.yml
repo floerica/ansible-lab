@@ -1,0 +1,11 @@
+---
+# control block
+- name: Parcheando Clients
+  hosts: all:!controlnode
+  become: true
+  gather_facts: true 
+  tasks:
+    - name: patch Clients
+      ansible.builtin.package:
+       name: '*'
+       state: latest

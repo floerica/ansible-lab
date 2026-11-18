@@ -1,0 +1,14 @@
+---
+# control block
+- name: Parcheando Clients 2
+  hosts: all:!contronode
+  become: true
+  gather_facts: true 
+  serial:
+   - 1
+   - 2
+  tasks:
+    - name: patch Clients 2 
+      ansible.builtin.package:
+       name: '*'
+       state: latest
