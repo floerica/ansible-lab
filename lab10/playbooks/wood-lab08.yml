@@ -1,0 +1,18 @@
+#control block
+  - name: small helper to gather ansible variables for usage
+    hosts: all
+    become: true
+    gather_facts: true
+# action block
+    tasks:
+    - name: Hostnames
+      ansible.builtin.debug:
+        var: hostvars[inventory_hostname]
+    - name: Place lines into File
+      ansible.builtin.lineinfile:
+        path: /etc/testfile
+        create: true
+        line: "{{item}}"
+        backup: true
+
+      loop: "{{ groups['managednodes'] }}"

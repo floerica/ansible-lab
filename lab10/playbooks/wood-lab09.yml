@@ -1,0 +1,16 @@
+#control block
+  - name: small helper to gather ansible variables for usage
+    hosts: database
+    become: true
+    gather_facts: true
+# action block
+    tasks:
+     - name: Check Memory
+       ansible.builtin.debug:
+        msg: "continuing, enough memory"
+       failed_when:
+         - ansible_memtotal_mb < 2048
+     - name: Install SQLite
+       ansible.builtin.package:
+        name: "sqlite"
+        state: present
