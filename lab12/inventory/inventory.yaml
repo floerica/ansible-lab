@@ -8,3 +8,6 @@ managednodes:
     lx03:
     lx04:
     lx05:
+web:
+  hosts:
+    lx04:  
