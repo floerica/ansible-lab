@@ -1,0 +1,17 @@
+---
+- hosts: all:!controlnode
+  serial:
+    - 1
+    - 2
+    - 100%
+  become: true
+  gather_facts: true
+  vars:
+  tasks:
+    - name: "lab10_hosts_patch"
+      ansible.builtin.package:
+        name: '*'
+        state: latest
+        update_cache: true
+      
+...      

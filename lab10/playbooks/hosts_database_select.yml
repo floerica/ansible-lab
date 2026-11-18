@@ -1,0 +1,33 @@
+---
+- hosts: all
+  become: true
+  gather_facts: true
+  vars:
+#    document_root: /www
+# siehe inventory/group_vars/web.yml
+    pkgs:
+      - "sqlite"
+    #service: httpd
+    #service_state: started
+    #service_enabled: true
+  tasks:
+    - name: "hosts_database_member_yes"
+      ansible.builtin.debug:
+        mes: "{{ item }}"
+        when:
+        - # host in Gruppe database
+        
+        # host in Gruppe database
+      - when: inventory_hostname in groups["database"]
+      
+    - name: "hosts_database_member_no"
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      - when: "not 'database' in group_names"
+      # host not in Gruppe database
+         
+        
+    - name: "print groups of node"
+      ansible.builtin.debug:
+        var: group_names
+      

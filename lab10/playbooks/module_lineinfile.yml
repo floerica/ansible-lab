@@ -1,0 +1,33 @@
+---
+- hosts: all
+  become: true
+  gather_facts: true
+  vars:
+#    document_root: /www
+# siehe inventory/group_vars/web.yml
+    pkgs:
+      - httpd
+    service: httpd
+    service_state: started
+    service_enabled: true
+  tasks:
+    #- name: "Loop over the group managednodes, debug.msg"
+    # /etc/testfile 
+    #  ansible.builtin.debug:
+    #    msg: "Hallo: {{ item }}"
+    - name: "Loop over the group managednodes, lineinfile"
+      ansible.builtin.lineinfile:
+        path: /tmp/testfile
+        line: "{{ item }}"
+        create: yes
+        backup: true
+      loop: "{{ groups['managednodes'] }}"
+
+    - name: "Loop over the group managednodes, ls -l /tmp/testfile"
+      ansible.builtin.command:
+        argv:
+          - /bin/ls
+          - -l 
+          - /tmp/testfile
+      register: command_result
+      loop: "{{ groups['managednodes'] }}"
