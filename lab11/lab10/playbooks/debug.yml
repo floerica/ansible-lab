@@ -1,0 +1,12 @@
+---
+- name: Test parallel execution
+  hosts: all
+
+  tasks:
+    - name: Display hostname
+      ansible.builtin.debug:
+        msg: "Processing host {{ inventory_hostname }}"
+
+    - name: Simulate processing time
+      ansible.builtin.command: sleep 5
+      changed_when: false

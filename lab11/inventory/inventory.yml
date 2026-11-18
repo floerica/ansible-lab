@@ -1,0 +1,31 @@
+all:
+  vars:
+    secret_password: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      32346365623463323338663030383334323237376566306637383162346436376561633063633661
+      6536323233326535366236333731326534633633646537340a383636383434343061633465383230
+      37623961613237643337353932326635666239356166633563396361356536643864373564666436
+      6333663666383437650a393237633566656237316432343232323136613536313663626163663261
+      3933
+controlnode:
+  hosts:
+    lx01:
+      ansible_host: controlnode-user7.ansible-introduction.training.scinnolab.net
+managednodes:
+  hosts:
+    lx02:
+      ansible_host: lx02-user7.ansible-introduction.training.scinnolab.net
+    lx03:
+      ansible_host: lx03-user7.ansible-introduction.training.scinnolab.net
+    lx04:
+      ansible_host: lx04-user7.ansible-introduction.training.scinnolab.net
+    lx05:
+      ansible_host: lx05-user7.ansible-introduction.training.scinnolab.net
+web:
+  hosts:
+    lx02:
+  vars:
+    document_root: /www
+database:
+  hosts:
+    lx04:

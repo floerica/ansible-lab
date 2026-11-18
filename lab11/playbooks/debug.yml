@@ -1,0 +1,17 @@
+---
+- name: Test parallel execution
+  hosts: all
+  no_log: true
+  
+  tasks:
+    - name: Display hostname
+      ansible.builtin.debug:
+        msg: "Processing host {{ inventory_hostname }}"
+
+    - name: Simulate processing time
+      ansible.builtin.command: sleep 5
+      changed_when: false
+
+    - name: Display secret variable
+      ansible.builtin.debug:
+        msg: "Secret is {{ secret_password }}"

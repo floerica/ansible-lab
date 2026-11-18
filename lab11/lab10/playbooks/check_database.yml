@@ -1,0 +1,15 @@
+---
+- name: Check database group membership
+  hosts: all
+
+  tasks:
+
+    - name: Host is in database group
+      ansible.builtin.debug:
+        msg: "{{ inventory_hostname }} is a database host"
+      when: inventory_hostname in groups['database']
+
+    - name: Host is NOT in database group
+      ansible.builtin.debug:
+        msg: "{{ inventory_hostname }} is NOT a database host"
+      when: inventory_hostname not in groups['database']
