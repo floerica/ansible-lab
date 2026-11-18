@@ -1,0 +1,46 @@
+---
+- hosts: web
+  become: true
+  gather_facts: true
+#  vars:
+#   document_root: /www
+  tasks:
+    - name: "install httpd"
+      ansible.builtin.package:
+        name: "'package-name'"
+        state: present
+        update_cache: true
+    - name: enable and start httpd
+      ansible.builtin.service:
+        name: "{{ 'service-name' }}"
+        state: "started"
+        enabled: true
+    - name: "create /www/html"
+      ansible.builtin.file:
+        path: "{{ document_root }}/html"
+        mode: "0755"
+        owner: "apache"
+        group: "apache"
+        state: directory
+    - name: template apache config
+      ansible.builtin.template:
+        src: "{{ 'conf-file name' }}"
+        dest: "/etc/httpd/conf/httpd.conf"
+        mode: "0644"
+        owner: "apache"
+        group: "apache"
+        backup: true
+      notify:
+        - restart-httpd
+    - name: copy index.html
+      ansible.builtin.template:
+        src: "{{ html-file }}"
+        dest: "/www/html/index.html"
+        mode: "0644"
+        owner: "apache"
+        group: "apache"
+  handlers:
+    - name: restart-httpd
+      ansible.builtin.service:
+        name: "{{ 'service-name' }}"
+        state: "restarted"

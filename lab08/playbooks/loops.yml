@@ -1,0 +1,16 @@
+---
+- name: Write managednodes hosts into /etc/testfile
+  hosts: all 
+  gather_facts: true 
+  become: true
+
+  tasks:
+    - name: Add each host from managednodes to /etc/testfile
+      ansible.builtin.lineinfile:
+        path: /etc/testfile
+        line: "{{ item }}"
+        create: true
+        state: present
+        backup: true
+      loop: "{{ groups['managednodes'] }}"
+...
