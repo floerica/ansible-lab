@@ -8,4 +8,4 @@
         name: sqlite
         state: present
       when:
-        - ansible_memtotal_mb >2048
+        - ansible_facts['memtotal_mb'] > 2048
