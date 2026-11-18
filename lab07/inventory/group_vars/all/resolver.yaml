@@ -1,0 +1,9 @@
+ansible_managed: "This file is managed by Ansible and has been distributed by Florian"
+
+resolv_nameservers:
+  - 1.1.1.1
+  - 8.8.8.8
+
+resolv_search:
+  - example.com
+  - ansible.com
