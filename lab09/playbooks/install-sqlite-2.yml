@@ -1,0 +1,17 @@
+---
+# control block
+  - name: check and print group 
+    hosts: all
+    become: yes
+    gather_facts: true
+# action block
+    tasks:
+    - name: "Print message"
+      ansible.builtin.debug:
+        msg: "Host {{ inventory_hostname }} is a member of the database group."
+      when: inventory_hostname in groups['database']
+    - name: Host is NOT in database group
+      ansible.builtin.debug:
+        msg: "Host {{ inventory_hostname }} is NOT a member of the database group."
+      when: inventory_hostname not in groups['database']
+...
