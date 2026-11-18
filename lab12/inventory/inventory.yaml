@@ -4,7 +4,7 @@ controlnode:
 
 managednodes:
   hosts:
-    lx02
+    lx02:
     lx03:
     lx04:
     lx05:
