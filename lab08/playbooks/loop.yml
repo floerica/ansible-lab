@@ -8,4 +8,5 @@
         path: /tmp/myfile
         line: "{{ item }}"
         create: true
+        backup: true
       loop: "{{ groups['managednodes'] }}"
