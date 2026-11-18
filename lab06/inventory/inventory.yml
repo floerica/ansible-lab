@@ -15,5 +15,4 @@ web:
   hosts:
     lx02:
       ansible_host: lx02-user10.ansible-introduction.training.scinnolab.net
-    lx04:
 

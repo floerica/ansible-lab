@@ -2,7 +2,7 @@
 document_root: /www
 "package-name": httpd 
 "service-name": httpd
-"conf-file name": httpd.conf.j2
+"conf-file": httpd.conf.j2
 html-file: index.html.j2
 ...
 
