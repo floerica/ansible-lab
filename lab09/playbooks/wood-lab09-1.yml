@@ -1,0 +1,18 @@
+#control block
+  - name: small helper to gather ansible variables for usage
+    hosts: all
+    become: yes
+    gather_facts: true
+# action block
+    tasks:
+    - name: print in database
+      ansible.builtin.debug:
+        msg: "baecaus in db"
+      when: inventory_hostname in groups {"database"} 
+
+    - name: print group membership of hosts
+      ansible.builtin.debug:
+        msg: "printed because of member in group database"
+      when: when: not "'database' in group_names"
+
+#     

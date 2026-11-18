@@ -1,0 +1,49 @@
+#control block
+  - name: Small helper to gather ansible variables for usage
+    hosts: web
+    become: yes
+    gather_facts: true
+# action block
+    vars:
+      pkgs: "httpd"
+      webuser: apache
+      webgroup: apache
+      document_root: /www
+      src_index: "~/ansible-lab/lab06/files/index.html"
+      src_template: "~/ansible-lab/lab06/templates/httpd.conf.j2"
+    tasks:
+    - name: Install Apache Webserver
+      ansible.builtin.package:
+        name: "{{pkgs}}"
+        state: present
+    - name: Start apache service
+      ansible.builtin.service:
+        name: "{{pkgs}}"
+        state: started
+    - name: Create Folder and Permissons
+      ansible.builtin.file:
+        path: "{{document_root}}/html"
+        state: directory
+        mode: "0755"
+        owner: "{{webuser}}"
+        group: "{{webgroup}}"
+    - name: Copy file
+      ansible.builtin.copy:
+        src: "{{src_index}}"
+        dest: "{{document_root}}/html"
+        mode: '0755'
+    - name: Change Template
+      ansible.builtin.template:
+        backup: true
+        src: "{{src_template}}"
+        dest: /etc/httpd/conf/
+        owner: "{{webuser}}"
+        group: "{{webgroup}}"
+        mode: "0644"
+      notify:
+        - restart-httpd
+    handlers:
+      - name: restart-httpd
+        ansible.builtin.service:
+          name: httpd
+          state: restarted 
